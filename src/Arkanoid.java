@@ -1,16 +1,19 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Arkanoid extends Application {
+    private Pane root;
+    private Scene scene;
+    private static final int SCENE_WIDTH = 1200;
+    private static final int SCENE_HEIGHT = 650;
 
-    @Override
     public void start(Stage primaryStage) {
+        this.root = new Pane();
+        this.scene = new Scene(this.root, SCENE_WIDTH, SCENE_HEIGHT);
         primaryStage.setTitle("Arkanoid Game");
-        StackPane root = new StackPane();
-        Scene scene = new Scene(root, 800, 600);
-        primaryStage.setScene(scene);
+        primaryStage.setScene(this.scene);
         primaryStage.show();
     }
 
