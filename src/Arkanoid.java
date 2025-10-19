@@ -16,15 +16,13 @@ public class Arkanoid extends Application {
         this.root = new Pane();
         this.scene = new Scene(this.root, SCENE_WIDTH, SCENE_HEIGHT);
         primaryStage.setTitle("Arkanoid Game");
-        Rectangle paddle = new Rectangle(100, 20, Color.BLUE);
-        paddle.setLayoutX(350);
-        paddle.setLayoutY(560);
+        Paddle paddle = new Paddle();
 
         Circle ball = new Circle(10, Color.RED);
         ball.setLayoutX(400);
         ball.setLayoutY(550);
 
-        root.getChildren().addAll(paddle, ball);
+        root.getChildren().addAll(paddle.drawPaddle(), ball);
         primaryStage.setScene(this.scene);
         primaryStage.show();
     }
