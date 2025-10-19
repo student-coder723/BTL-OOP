@@ -1,9 +1,6 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Arkanoid extends Application {
@@ -17,12 +14,8 @@ public class Arkanoid extends Application {
         this.scene = new Scene(this.root, SCENE_WIDTH, SCENE_HEIGHT);
         primaryStage.setTitle("Arkanoid Game");
         Paddle paddle = new Paddle();
-
-        Circle ball = new Circle(10, Color.RED);
-        ball.setLayoutX(400);
-        ball.setLayoutY(550);
-
-        root.getChildren().addAll(paddle.drawPaddle(), ball);
+        Ball ball = new Ball();
+        root.getChildren().addAll(paddle.drawPaddle(), ball.drawBall());
         primaryStage.setScene(this.scene);
         primaryStage.show();
     }
