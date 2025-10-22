@@ -6,14 +6,14 @@ import java.net.URL;
 import java.util.Objects;
 
 public class Paddle {
-    Image paddle = new Image(((URL) Objects.requireNonNull(this.getClass().getResource("/Paddle/a.png"))).toExternalForm(), (double)200.0F, (double)40.0F, false, false);
-    ImageView paddle_iv;
     private double Height;
     private double Width;
+    Image paddle = new Image(((URL) Objects.requireNonNull(this.getClass().getResource("/Paddle/a.png"))).toExternalForm(), (double)200.0F, (double)40.0F, false, false);
+    ImageView paddle_iv;
 
     public Paddle() {
-        this.Height = 25.0F;
-        this.Width = 100.0F;
+        this.Height = 40.0F;
+        this.Width = 200.0F;
         this.paddle_iv = new ImageView(this.paddle);
     }
 

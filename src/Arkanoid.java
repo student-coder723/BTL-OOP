@@ -21,6 +21,12 @@ public class Arkanoid extends Application {
         primaryStage.setTitle("Arkanoid Game");
         scene.setOnMouseMoved(e -> {
             paddle.setX((int) e.getX() - paddle.getWidth() / 2);
+            if ( e.getX() >= SCENE_WIDTH - paddle.getWidth() / 2) {
+                paddle.setX(SCENE_WIDTH - paddle.getWidth() );
+            }
+            if (paddle.getX() <= 0) {
+                paddle.setX(0);
+            }
             if (!gameStarted) {
                 ball.setX(e.getX() - ball.getWidth() / 2);
             }
@@ -63,6 +69,18 @@ public class Arkanoid extends Application {
         if (gameStarted) {
             ball.setX(ball.getX() + ball.getDx());
             ball.setY(ball.getY() + ball.getDy());
+            if (ball.getX() <= 0) {
+                ball.setDx(-ball.getDx());
+            }
+            if (ball.getX() + ball.getWidth() >= SCENE_WIDTH) {
+                ball.setDx(-ball.getDx());
+            }
+            if (ball.getY() <= 0) {
+                ball.setDy(-ball.getDy());
+            }
+            if (ball.getDy() > 0 && ball.ball_iv.getBoundsInParent().intersects(paddle.paddle_iv.getBoundsInParent())) {
+                ball.setDy(-ball.getDy());
+            }
         }
     }
 
