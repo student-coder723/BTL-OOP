@@ -15,6 +15,9 @@ public class Arkanoid extends Application {
         this.initializeGame();
         this.scene = new Scene(this.root, SCENE_WIDTH, SCENE_HEIGHT);
         primaryStage.setTitle("Arkanoid Game");
+        scene.setOnMouseMoved(e -> {
+            paddle.setX((int) e.getX() - paddle.getWidth() / 2);
+        });
         primaryStage.setScene(this.scene);
         primaryStage.show();
     }
