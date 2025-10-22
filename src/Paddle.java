@@ -1,20 +1,20 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import java.net.URL;
+import java.util.Objects;
 
 public class Paddle {
+    Image paddle = new Image(((URL) Objects.requireNonNull(this.getClass().getResource("/Paddle/a.png"))).toExternalForm(), (double)200.0F, (double)40.0F, false, false);
+    ImageView paddle_iv;
     private double Height;
     private double Width;
 
     public Paddle() {
         this.Height = 25.0F;
         this.Width = 100.0F;
-    }
-
-    public Rectangle drawPaddle() {
-        Rectangle paddle = new Rectangle(this.getWidth(), this.Height, Color.BLUE);
-        paddle.setLayoutX(350);
-        paddle.setLayoutY(560);
-        return paddle;
+        this.paddle_iv = new ImageView(this.paddle);
     }
 
     public double getHeight() {
@@ -31,5 +31,21 @@ public class Paddle {
 
     public void setWidth(double width) {
         this.Width = width;
+    }
+
+    public double getX() {
+        return this.paddle_iv.getX();
+    }
+
+    public void setX(double x) {
+        this.paddle_iv.setX(x);
+    }
+
+    public double getY() {
+        return this.paddle_iv.getY();
+    }
+
+    public void setY(double y) {
+        this.paddle_iv.setY(y);
     }
 }
