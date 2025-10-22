@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.animation.AnimationTimer;
 
 public class Arkanoid extends Application {
     private Pane root;
@@ -11,13 +12,37 @@ public class Arkanoid extends Application {
     private static final int SCENE_WIDTH = 1200;
     private static final int SCENE_HEIGHT = 650;
 
+    private boolean gameStarted = false;
+    private AnimationTimer gameLoop;
+
     public void start(Stage primaryStage) {
         this.initializeGame();
         this.scene = new Scene(this.root, SCENE_WIDTH, SCENE_HEIGHT);
         primaryStage.setTitle("Arkanoid Game");
         scene.setOnMouseMoved(e -> {
             paddle.setX((int) e.getX() - paddle.getWidth() / 2);
+            if (!gameStarted) {
+                ball.setX(e.getX() - ball.getWidth() / 2);
+            }
         });
+
+        scene.setOnMouseClicked(e -> {
+            if (!gameStarted) {
+                gameStarted = true;
+
+                ball.setDx(3.0);
+                ball.setDy(-5.0);
+            }
+        });
+
+        gameLoop = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                update();
+            }
+        };
+        gameLoop.start();
+
         primaryStage.setScene(this.scene);
         primaryStage.show();
     }
@@ -32,6 +57,13 @@ public class Arkanoid extends Application {
         this.ball.setX((double)400.0F);
         this.ball.setY((double)530.0F);
         this.root.getChildren().add(this.ball.ball_iv);
+    }
+
+    private void update() {
+        if (gameStarted) {
+            ball.setX(ball.getX() + ball.getDx());
+            ball.setY(ball.getY() + ball.getDy());
+        }
     }
 
     public static void main(String[] args) {
