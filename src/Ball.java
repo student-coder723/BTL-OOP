@@ -2,6 +2,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.awt.Rectangle;
+
 public class Ball extends MovableObject {
     private int speed;
     private int directionX;
@@ -16,7 +18,24 @@ public class Ball extends MovableObject {
         this.ballImage = image;
     }
 
+    private void updateVelocity() {
+        this.dx = this.speed * this.directionX;
+        this.dy = this.speed * this.directionY;
+    }
 
+    public boolean checkCollistion(GameObject other) {
+        Rectangle ballBounds = new Rectangle(x, y, width, height);
+        Rectangle otherBounds = new Rectangle(other.getX(), other.getY(), other.getWidth(), other.getHeight());
+        return ballBounds.intersects(otherBounds);
+    }
+
+    public void reverseDirectionX() {
+        setDirectionX(-this.directionX);
+    }
+
+    public void reverseDirectionY() {
+        setDirectionY(-this.directionY);
+    }
 
     @Override
     public void update() {
@@ -24,11 +43,11 @@ public class Ball extends MovableObject {
         y += speed * directionY;
 
         if (x <= 0 || x + width >= Arkanoid.WIDTH) {
-            directionX = -directionX;
+            reverseDirectionX();
         }
 
         if (y <= 0 || y + height >= Arkanoid.HEIGHT) {
-            directionY = -directionY;
+            reverseDirectionY();
         }
     }
 

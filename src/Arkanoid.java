@@ -64,6 +64,15 @@ public class Arkanoid extends Application {
     private void updateGame() {
         paddle.update();
         ball.update();
+
+        checkCollisions();
+    }
+
+    private void checkCollisions() {
+        if (ball.checkCollistion(paddle) && ball.getDirectionY() > 0) {
+            ball.reverseDirectionY();
+            ball.setY(paddle.getY() - ball.getHeight());
+        }
     }
 
     private void renderGame(GraphicsContext gc) {
