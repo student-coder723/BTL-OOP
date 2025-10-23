@@ -22,6 +22,14 @@ public class Ball extends MovableObject {
     public void update() {
         x += speed * directionX;
         y += speed * directionY;
+
+        if (x <= 0 || x + width >= Arkanoid.WIDTH) {
+            directionX = -directionX;
+        }
+
+        if (y <= 0 || y + height >= Arkanoid.HEIGHT) {
+            directionY = -directionY;
+        }
     }
 
     @Override
