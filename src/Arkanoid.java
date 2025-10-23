@@ -10,14 +10,21 @@ import javafx.stage.Stage;
 public class Arkanoid extends Application {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
+
+    private Paddle paddle;
+    private Ball ball;
     private Image background;
+    private Image paddleImage;
+    private Image ballImage;
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Arkanoid Game");
 
         try {
-            background = new Image(getClass().getResourceAsStream("/background.jpg"));
+            background = new Image(getClass().getResourceAsStream("/Background.jpg"));
+            paddleImage = new Image(getClass().getResourceAsStream("/Paddle.png"));
+            ballImage = new Image(getClass().getResourceAsStream("/Ball.png"));
         } catch (Exception e) {
             System.out.println("Error");
             e.printStackTrace();
@@ -30,6 +37,9 @@ public class Arkanoid extends Application {
         Scene scene = new Scene(root);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        paddle = new Paddle(WIDTH/2 - 50, HEIGHT- 50,100, 20, 10, paddleImage);
+        ball = new Ball(WIDTH/2 - 10, HEIGHT/2- 10, 20,2, 1, -1, ballImage);
 
         renderGame(gc);
 
@@ -45,6 +55,9 @@ public class Arkanoid extends Application {
             gc.setFill(Color.WHITE);
             gc.fillRect(0, 0 ,WIDTH, HEIGHT);
         }
+
+        paddle.render(gc);
+        ball.render(gc);
     }
 
     public static void main(String[] args) {

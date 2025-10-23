@@ -1,11 +1,15 @@
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class Paddle extends MovableObject {
     protected int speed;
+    private Image paddleImage;
 
-    public Paddle(int x, int y, int width, int height, int speed) {
+    public Paddle(int x, int y, int width, int height, int speed, Image image) {
         super(x, y, width, height, 0, 0);
         this.speed = speed;
+        this.paddleImage = image;
     }
 
     public void moveLeft() {
@@ -35,7 +39,12 @@ public class Paddle extends MovableObject {
 
     @Override
     public void render(GraphicsContext g) {
-
+        if (paddleImage != null) {
+            g.drawImage(paddleImage, x, y, width, height);
+        } else {
+            g.setFill(Color.YELLOW);
+            g.fillRect(x, y, width, height);
+        }
     }
 
     public int getSpeed() {
