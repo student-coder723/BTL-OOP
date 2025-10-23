@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+
 public class Ball extends MovableObject {
     private int speed;
     private int directionX;
@@ -10,13 +12,7 @@ public class Ball extends MovableObject {
         this.directionY = directionY;
     }
 
-    public boolean checkCollision(GameObject other) {
 
-    }
-
-    public boolean checkCollision(GameObject other) {
-
-    }
 
     @Override
     public void update() {
@@ -24,7 +20,7 @@ public class Ball extends MovableObject {
     }
 
     @Override
-    public void render() {
+    public void render(GraphicsContext g) {
 
     }
 

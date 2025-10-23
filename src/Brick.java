@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+
 public abstract class Brick extends GameObject {
     private boolean isDestroyed = false;
 
@@ -6,7 +8,7 @@ public abstract class Brick extends GameObject {
     }
 
     @Override
-    public void render() {
+    public void render(GraphicsContext g) {
 
     }
 

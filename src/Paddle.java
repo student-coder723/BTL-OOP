@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+
 public class Paddle extends MovableObject {
     protected int speed;
 
@@ -32,7 +34,7 @@ public class Paddle extends MovableObject {
     }
 
     @Override
-    public void render() {
+    public void render(GraphicsContext g) {
 
     }
 
