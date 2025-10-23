@@ -1,3 +1,4 @@
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -8,8 +9,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Arkanoid extends Application {
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 600;
 
     private Paddle paddle;
     private Ball ball;
@@ -36,16 +37,33 @@ public class Arkanoid extends Application {
         root.getChildren().add(canvas);
         Scene scene = new Scene(root);
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
         paddle = new Paddle(WIDTH/2 - 50, HEIGHT- 50,100, 20, 10, paddleImage);
         ball = new Ball(WIDTH/2 - 10, HEIGHT/2- 10, 20,2, 1, -1, ballImage);
 
+        GraphicsContext gc = canvas.getGraphicsContext2D();
         renderGame(gc);
 
+        scene.setOnMouseMoved(e -> {
+            paddle.setX((int) e.getX() - paddle.getWidth() / 2);
+        });
+
+        AnimationTimer gameLoop = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                updateGame();
+                renderGame(gc);
+            }
+        };
+
+        gameLoop.start();
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+    }
+
+    private void updateGame() {
+        paddle.update();
+        ball.update();
     }
 
     private void renderGame(GraphicsContext gc) {

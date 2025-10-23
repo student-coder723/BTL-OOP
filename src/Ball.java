@@ -20,7 +20,8 @@ public class Ball extends MovableObject {
 
     @Override
     public void update() {
-        super.update();
+        x += speed * directionX;
+        y += speed * directionY;
     }
 
     @Override
