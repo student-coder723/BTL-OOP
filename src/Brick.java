@@ -20,7 +20,7 @@ public abstract class Brick extends GameObject {
 
     @Override
     public void render(GraphicsContext g) {
-        if (brickImage != null) {
+        if (!isDestroyed() && brickImage != null) {
             g.drawImage(brickImage, x, y, width, height);
         }
     }

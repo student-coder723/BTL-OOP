@@ -90,6 +90,12 @@ public class Arkanoid extends Application {
             ball.reverseDirectionY();
             ball.setY(paddle.getY() - ball.getHeight());
         }
+        for (Brick brick : bricks) {
+            if (!brick.isDestroyed() && ball.checkCollision(brick)) {
+                ball.reverseDirectionY();
+                break;
+            }
+        }
     }
 
     private void initBrick() {
