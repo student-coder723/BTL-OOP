@@ -1,9 +1,18 @@
+import javafx.scene.canvas.GraphicsContext;
+
 public abstract class GameObject {
     protected int x;
     protected int y;
     protected int width;
     protected int height;
 
+    /**
+     * GameObject constructor.
+     * @param x vị trí theo trục X
+     * @param y vị trí theo trục Y
+     * @param width chiểu rộng của đối tượng
+     * @param height chiều cao của dối tượng
+     */
     public GameObject(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -13,7 +22,7 @@ public abstract class GameObject {
 
     public abstract void update();
 
-    public abstract void render();
+    public abstract void render(GraphicsContext g);
 
     public int getX() {
         return x;

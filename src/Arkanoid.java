@@ -8,15 +8,27 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Arkanoid extends Application {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
+    private List<Brick> bricks = new ArrayList<>();
 
     private Paddle paddle;
     private Ball ball;
     private Image background;
     private Image paddleImage;
     private Image ballImage;
+    private Image brickImage1;
+    private Image brickImage2;
+    private Image brickImage3;
+    private Image brickImage4;
+    private Image brickImage5;
+
+    private Random random = new Random();
 
     @Override
     public void start(Stage primaryStage) {
@@ -26,10 +38,14 @@ public class Arkanoid extends Application {
             background = new Image(getClass().getResourceAsStream("/Background.jpg"));
             paddleImage = new Image(getClass().getResourceAsStream("/Paddle.png"));
             ballImage = new Image(getClass().getResourceAsStream("/Ball.png"));
+            brickImage1 = new Image(getClass().getResourceAsStream("/Brick_1.png"));
+            brickImage2 = new Image(getClass().getResourceAsStream("/Brick_2.png"));
+            brickImage3 = new Image(getClass().getResourceAsStream("/Brick_3.png"));
+            brickImage4 = new Image(getClass().getResourceAsStream("/Brick_4.png"));
+            brickImage5 = new Image(getClass().getResourceAsStream("/Brick_5.png"));
         } catch (Exception e) {
             System.out.println("Error");
             e.printStackTrace();
-            background = null;
         }
 
         Pane root = new Pane();
@@ -39,6 +55,7 @@ public class Arkanoid extends Application {
 
         paddle = new Paddle(WIDTH/2 - 50, HEIGHT- 50,100, 20, 10, paddleImage);
         ball = new Ball(WIDTH/2 - 10, HEIGHT/2- 10, 20,2, 1, -1, ballImage);
+        initBrick();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         renderGame(gc);
@@ -69,9 +86,44 @@ public class Arkanoid extends Application {
     }
 
     private void checkCollisions() {
-        if (ball.checkCollistion(paddle) && ball.getDirectionY() > 0) {
+        if (ball.checkCollision(paddle) && ball.getDirectionY() > 0) {
             ball.reverseDirectionY();
             ball.setY(paddle.getY() - ball.getHeight());
+        }
+    }
+
+    private void initBrick() {
+        int brickWidth = 70;
+        int brickHeight = 25;
+        int padding = 0;
+        int setTop = 50;
+        int setLeft = 50;
+
+        for (int row = 0; row < 5; row++) {
+            for (int col = 0; col < 10; col++) {
+                int x = setLeft + col * (brickWidth + padding);
+                int y = setTop + row * (brickHeight + padding);
+
+                int type = random.nextInt(5);
+
+                switch (type) {
+                    case 0:
+                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, brickImage1));
+                        break;
+                    case 1:
+                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, brickImage2));
+                        break;
+                    case 2:
+                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, brickImage3));
+                        break;
+                    case 3:
+                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, brickImage4));
+                        break;
+                    case 4:
+                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, brickImage5));
+                        break;
+                }
+            }
         }
     }
 
@@ -85,6 +137,10 @@ public class Arkanoid extends Application {
 
         paddle.render(gc);
         ball.render(gc);
+
+        for (Brick brick : bricks) {
+            brick.render(gc);
+        }
     }
 
     public static void main(String[] args) {

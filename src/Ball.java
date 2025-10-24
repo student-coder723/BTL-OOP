@@ -10,6 +10,16 @@ public class Ball extends MovableObject {
     private int directionY;
     private Image ballImage;
 
+    /**
+     * Ball constructor.
+     * @param x vị trí theo trục X
+     * @param y vị trí theo trục Y
+     * @param size kích thước của Ball
+     * @param speed tốc dộ di chuyển của Ball
+     * @param directionX hướng di chuyển theo trục X
+     * @param directionY hướng di chuyển theo trục Y
+     * @param image ballImage
+     */
     public Ball(int x, int y, int size, int speed, int directionX, int directionY, Image image) {
         super(x, y, size, size, 0, 0);
         this.speed = speed;
@@ -23,7 +33,7 @@ public class Ball extends MovableObject {
         this.dy = this.speed * this.directionY;
     }
 
-    public boolean checkCollistion(GameObject other) {
+    public boolean checkCollision(GameObject other) {
         Rectangle ballBounds = new Rectangle(x, y, width, height);
         Rectangle otherBounds = new Rectangle(other.getX(), other.getY(), other.getWidth(), other.getHeight());
         return ballBounds.intersects(otherBounds);
