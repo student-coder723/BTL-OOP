@@ -6,6 +6,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ public class Arkanoid extends Application {
     private Image brickImage3;
     private Image brickImage4;
     private Image brickImage5;
+
+    private GameState gameState = GameState.READY;
 
     private Random random = new Random();
 
@@ -64,6 +68,14 @@ public class Arkanoid extends Application {
             paddle.setX((int) e.getX() - paddle.getWidth() / 2);
         });
 
+        scene.setOnMouseClicked(e -> {
+            if (gameState == GameState.READY) {
+                gameState = GameState.RUNNING;
+            } else if (gameState == GameState.GAME_OVER) {
+                resetGame();
+            }
+        });
+
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -80,12 +92,20 @@ public class Arkanoid extends Application {
 
     private void updateGame() {
         paddle.update();
-        ball.update();
-
-        checkCollisions();
+        if (gameState == GameState.RUNNING) {
+            ball.update();
+            checkCollisions();
+        } else {
+            ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
+            ball.setY(paddle.getY() - ball.getHeight());
+        }
     }
 
     private void checkCollisions() {
+        if (ball.getY() + ball.getHeight() >= HEIGHT) {
+            gameState = GameState.GAME_OVER;
+        }
+
         if (ball.checkCollision(paddle) && ball.getDirectionY() > 0) {
             ball.reverseDirectionY();
             ball.setY(paddle.getY() - ball.getHeight());
@@ -147,6 +167,17 @@ public class Arkanoid extends Application {
         for (Brick brick : bricks) {
             brick.render(gc);
         }
+    }
+
+    /**
+     * Reset game.
+     */
+    private void resetGame() {
+        paddle.setX(WIDTH /2 - 50);
+        ball.setDirectionY(-1);
+        ball.setDirectionX(1);
+        initBrick();
+        gameState = GameState.READY;
     }
 
     public static void main(String[] args) {
