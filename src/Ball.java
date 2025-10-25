@@ -28,6 +28,9 @@ public class Ball extends MovableObject {
         this.ballImage = image;
     }
 
+    /**
+     *
+     */
     private void updateVelocity() {
         this.dx = this.speed * this.directionX;
         this.dy = this.speed * this.directionY;
@@ -65,9 +68,6 @@ public class Ball extends MovableObject {
     public void render(GraphicsContext g) {
         if (ballImage != null) {
             g.drawImage(ballImage, x, y, width, height);
-        } else {
-            g.setFill(Color.YELLOW);
-            g.fillRect(x, y, width, height);
         }
     }
 

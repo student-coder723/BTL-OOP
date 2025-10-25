@@ -113,12 +113,16 @@ public class Arkanoid extends Application {
         for (Brick brick : bricks) {
             if (!brick.isDestroyed() && ball.checkCollision(brick)) {
                 ball.reverseDirectionY();
+                brick.handleCollision(ball);
                 break;
             }
         }
+
+        bricks.removeIf(Brick::isDestroyed);
     }
 
     private void initBrick() {
+        bricks.clear();
         int brickWidth = 70;
         int brickHeight = 25;
         int padding = 0;

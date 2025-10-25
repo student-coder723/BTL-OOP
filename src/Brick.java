@@ -30,6 +30,8 @@ public abstract class Brick extends GameObject {
 
     }
 
+    public abstract void handleCollision(Ball ball);
+
     public boolean isDestroyed() {
         return isDestroyed;
     }

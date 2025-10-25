@@ -7,4 +7,9 @@ public class StrongBrick extends Brick {
         super(x, y, width, height, image);
         this.health = 2;
     }
+
+    @Override
+    public void handleCollision(Ball ball) {
+
+    }
 }
