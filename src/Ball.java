@@ -59,7 +59,7 @@ public class Ball extends MovableObject {
             reverseDirectionX();
         }
 
-        if (y <= 0 || y + height >= Arkanoid.HEIGHT) {
+        if (y <= 0) {
             reverseDirectionY();
         }
     }

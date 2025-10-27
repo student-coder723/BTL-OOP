@@ -138,7 +138,7 @@ public class Arkanoid extends Application {
 
                 switch (type) {
                     case 0:
-                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, brickImage1));
+                        bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, brickImage5));
                         break;
                     case 1:
                         bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, brickImage2));
@@ -150,7 +150,7 @@ public class Arkanoid extends Application {
                         bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, brickImage4));
                         break;
                     case 4:
-                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, brickImage5));
+                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, brickImage1));
                         break;
                 }
             }
