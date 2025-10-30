@@ -2,86 +2,47 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.animation.AnimationTimer;
 
 public class Arkanoid extends Application {
-    private Pane root;
-    private Scene scene;
-    private Ball ball;
-    private Paddle paddle;
+
     private static final int SCENE_WIDTH = 1200;
     private static final int SCENE_HEIGHT = 650;
 
-    private boolean gameStarted = false;
-    private AnimationTimer gameLoop;
+    private GameLogic gameLogic;
+    private InputHandler inputHandler;
+    private GameUI gameUI;
 
+    private Ball ball;
+    private Paddle paddle;
+
+    @Override
     public void start(Stage primaryStage) {
-        this.initializeGame();
-        this.scene = new Scene(this.root, SCENE_WIDTH, SCENE_HEIGHT);
+
+        Pane root = new Pane();
+        Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
         primaryStage.setTitle("Arkanoid Game");
-        scene.setOnMouseMoved(e -> {
-            paddle.setX((int) e.getX() - paddle.getWidth() / 2);
-            if ( e.getX() >= SCENE_WIDTH - paddle.getWidth() / 2) {
-                paddle.setX(SCENE_WIDTH - paddle.getWidth() );
-            }
-            if (paddle.getX() <= 0) {
-                paddle.setX(0);
-            }
-            if (!gameStarted) {
-                ball.setX(e.getX() - ball.getWidth() / 2);
-            }
-        });
 
-        scene.setOnMouseClicked(e -> {
-            if (!gameStarted) {
-                gameStarted = true;
+        ball = new Ball();
+        paddle = new Paddle();
 
-                ball.setDx(6.0);
-                ball.setDy(-10.0);
-            }
-        });
+        gameUI = new GameUI(root);
+        gameLogic = new GameLogic(ball, paddle, SCENE_WIDTH, SCENE_HEIGHT);
+        inputHandler = new InputHandler(scene, paddle, ball, gameLogic);
 
-        gameLoop = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                update();
-            }
-        };
-        gameLoop.start();
+        gameUI.addObject(paddle.paddle_iv);
+        gameUI.addObject(ball.ball_iv);
 
-        primaryStage.setScene(this.scene);
+        paddle.setX(SCENE_WIDTH / 2 - paddle.getWidth() / 2);
+        paddle.setY(560);
+        ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
+        ball.setY(paddle.getY() - ball.getHeight());
+
+        inputHandler.registerHandlers();
+
+        gameLogic.start();
+
+        primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    private void initializeGame() {
-        this.root = new Pane();
-        this.paddle = new Paddle();
-        this.paddle.setX((double)350.0F - this.paddle.getWidth() / (double)2.0F);
-        this.paddle.setY((double)560.0F);
-        this.root.getChildren().add(this.paddle.paddle_iv);
-        this.ball = new Ball();
-        this.ball.setX((double)400.0F);
-        this.ball.setY((double)530.0F);
-        this.root.getChildren().add(this.ball.ball_iv);
-    }
-
-    private void update() {
-        if (gameStarted) {
-            ball.setX(ball.getX() + ball.getDx());
-            ball.setY(ball.getY() + ball.getDy());
-            if (ball.getX() <= 0) {
-                ball.setDx(-ball.getDx());
-            }
-            if (ball.getX() + ball.getWidth() >= SCENE_WIDTH) {
-                ball.setDx(-ball.getDx());
-            }
-            if (ball.getY() <= 0) {
-                ball.setDy(-ball.getDy());
-            }
-            if (ball.getDy() > 0 && ball.ball_iv.getBoundsInParent().intersects(paddle.paddle_iv.getBoundsInParent())) {
-                ball.setDy(-ball.getDy());
-            }
-        }
     }
 
     public static void main(String[] args) {
