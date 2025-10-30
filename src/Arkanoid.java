@@ -36,8 +36,8 @@ public class Arkanoid extends Application {
             if (!gameStarted) {
                 gameStarted = true;
 
-                ball.setDx(3.0);
-                ball.setDy(-5.0);
+                ball.setDx(6.0);
+                ball.setDy(-10.0);
             }
         });
 
