@@ -1,11 +1,15 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 
 public class Paddle extends MovableObject {
     protected int speed;
-    public Paddle(int x, int y, int width, int height, int speed) {
+    private Image paddleImage;
+
+    public Paddle(int x, int y, int width, int height, int speed, Image paddleImage) {
         super(x, y, width, height, 0, 0);
         this.speed = speed;
+        this.paddleImage = paddleImage;
     }
 
     @Override
@@ -15,15 +19,17 @@ public class Paddle extends MovableObject {
 
     @Override
     public void render (GraphicsContext gc) {
-        gc.setFill(Color.WHITE);
-        gc.fillRect(x, y, width, height);
+        if (paddleImage != null) {
+            gc.drawImage(paddleImage, x, y, width, height);
+        } else {
+            gc.setFill(Color.WHITE);
+            gc.fillRect(x, y, width, height);
+        }
     }
-
 
     public double getSpeed() {
         return speed;
     }
-
 
     public void setSpeed(int speed) {
         this.speed = speed;
