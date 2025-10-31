@@ -1,4 +1,5 @@
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class Brick extends GameObject {
     private boolean isDestroyed;
@@ -15,6 +16,8 @@ public class Brick extends GameObject {
 
     @Override
     public void render(GraphicsContext gc) {
+        gc.setFill(Color.WHITE);
+        gc.fillRect(x, y, width, height);
     }
 
     public boolean isDestroyed() {
