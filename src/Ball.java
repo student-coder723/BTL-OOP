@@ -33,6 +33,7 @@ public class Ball extends MovableObject {
     public int getDirectionX() {
         return directionX;
     }
+
     public void setDirectionX(int directionX) {
         this.directionX = directionX;
     }
