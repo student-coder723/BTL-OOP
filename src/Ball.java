@@ -1,4 +1,5 @@
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class Ball extends MovableObject {
     private int speed;
@@ -18,7 +19,10 @@ public class Ball extends MovableObject {
     }
 
     @Override
-    public void render(GraphicsContext gc) {}
+    public void render(GraphicsContext gc) {
+        gc.setFill(Color.RED);
+        gc.fillOval(x, y, width, height);
+    }
 
     public int getSpeed() {
         return speed;

@@ -14,6 +14,7 @@ public class Arkanoid extends Application {
 
     private GameUI gameUI;
     private Paddle paddle;
+    private Ball ball;
     private Image backgroundImage;
     private Image paddleImage;
 
@@ -36,9 +37,11 @@ public class Arkanoid extends Application {
 
         gameUI = new GameUI();
         paddle = new Paddle(SCENE_WIDTH / 2 - 50, SCENE_HEIGHT - 40, 100, 20, 5, paddleImage);
+        ball = new Ball(SCENE_WIDTH / 2, SCENE_HEIGHT / 2, 20, 4, 1, -1);
 
         gameUI.setBackgroundImage(backgroundImage);
         gameUI.setPaddle(paddle);
+        gameUI.setBall(ball);
 
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
