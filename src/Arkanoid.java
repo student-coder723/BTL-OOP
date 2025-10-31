@@ -7,12 +7,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-
 public class Arkanoid extends Application {
-
-
     private static final int SCENE_WIDTH = 800;
     private static final int SCENE_HEIGHT = 600;
+
+    private GameUI gameUI;
+    private Paddle paddle;
 
     @Override
     public void start(Stage primaryStage) {
@@ -31,14 +31,19 @@ public class Arkanoid extends Application {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
+        gameUI = new GameUI();
+        paddle = new Paddle(SCENE_WIDTH / 2 - 50, SCENE_HEIGHT - 40, 100, 20, 5);
+
+        gameUI.setPaddle(paddle);
+
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                gc.setFill(Color.BLACK);
-                gc.fillRect(0, 0, SCENE_WIDTH, SCENE_WIDTH);
+                gameUI.render(gc, SCENE_WIDTH, SCENE_HEIGHT);
             }
         };
 
+        gameLoop.start();
         primaryStage.show();
     }
 
