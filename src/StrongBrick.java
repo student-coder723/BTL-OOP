@@ -12,7 +12,5 @@ public class StrongBrick extends Brick {
     }
 
     @Override
-    public void render(GraphicsContext gc) {
-        super.render(gc);
     }
 }
