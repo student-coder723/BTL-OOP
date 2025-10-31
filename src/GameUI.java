@@ -1,10 +1,10 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.image.Image;
 
 public class GameUI {
     private Paddle paddle;
+    private Ball ball;
     private Image backgroundImage;
     public GameUI() {
 
@@ -21,6 +21,10 @@ public class GameUI {
         if (paddle != null){
             paddle.render(gc);
         }
+
+        if (ball != null) {
+            ball.render(gc);
+        }
     }
 
     public Paddle getPaddle(){
@@ -29,6 +33,14 @@ public class GameUI {
 
     public void setPaddle(Paddle paddle) {
         this.paddle = paddle;
+    }
+
+    public Ball getBall() {
+        return ball;
+    }
+
+    public void setBall(Ball ball) {
+        this.ball = ball;
     }
 
     public Image getBackgroundImage() {
