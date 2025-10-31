@@ -34,7 +34,9 @@ public class Arkanoid extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         gameUI = new GameUI();
-        paddle = new Paddle(SCENE_WIDTH / 2 - 50, SCENE_HEIGHT - 40, 100, 20, 5)
+        paddle = new Paddle(SCENE_WIDTH / 2 - 50, SCENE_HEIGHT - 40, 100, 20, 5);
+
+        gameUI.setPaddle(paddle);
 
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
