@@ -1,51 +1,31 @@
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import java.net.URL;
-import java.util.Objects;
 
-public class Paddle {
-    private double Height;
-    private double Width;
-    Image paddle = new Image(((URL) Objects.requireNonNull(this.getClass().getResource("/Paddle/a.png"))).toExternalForm(), (double)200.0F, (double)40.0F, false, false);
-    ImageView paddle_iv;
+import javafx.scene.canvas.GraphicsContext;
 
-    public Paddle() {
-        this.Height = 40.0F;
-        this.Width = 200.0F;
-        this.paddle_iv = new ImageView(this.paddle);
+
+public class Paddle extends MovableObject {
+    protected int speed;
+    public Paddle(int x, int y, int width, int height, int speed) {
+        super(x, y, width, height, 0, 0);
+        this.speed = speed;
     }
 
-    public double getHeight() {
-        return this.Height;
+    @Override
+    public void update() {
+
     }
 
-    public void setHeight(double height) {
-        this.Height = height;
+    @Override
+    public void render(GraphicsContext gc) {
+
     }
 
-    public double getWidth() {
-        return this.Width;
+
+    public double getSpeed() {
+        return speed;
     }
 
-    public void setWidth(double width) {
-        this.Width = width;
-    }
 
-    public double getX() {
-        return this.paddle_iv.getX();
-    }
-
-    public void setX(double x) {
-        this.paddle_iv.setX(x);
-    }
-
-    public double getY() {
-        return this.paddle_iv.getY();
-    }
-
-    public void setY(double y) {
-        this.paddle_iv.setY(y);
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }
