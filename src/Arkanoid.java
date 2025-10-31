@@ -8,8 +8,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 
-public class Arkanoid extends Application {
-
     private static final int SCENE_WIDTH = 800;
     private static final int SCENE_HEIGHT = 600;
 
