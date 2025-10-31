@@ -15,6 +15,7 @@ public class Arkanoid extends Application {
     private GameUI gameUI;
     private Paddle paddle;
     private Image backgroundImage;
+    private Image paddleImage;
 
     @Override
     public void start(Stage primaryStage) {
@@ -31,9 +32,10 @@ public class Arkanoid extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         backgroundImage = ResourceLoader.loadImage("/Background/Background.png");
+        paddleImage = ResourceLoader.loadImage("/Paddle/a.png");
 
         gameUI = new GameUI();
-        paddle = new Paddle(SCENE_WIDTH / 2 - 50, SCENE_HEIGHT - 40, 100, 20, 5);
+        paddle = new Paddle(SCENE_WIDTH / 2 - 50, SCENE_HEIGHT - 40, 100, 20, 5, paddleImage);
 
         gameUI.setBackgroundImage(backgroundImage);
         gameUI.setPaddle(paddle);
@@ -48,7 +50,6 @@ public class Arkanoid extends Application {
         gameLoop.start();
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);
