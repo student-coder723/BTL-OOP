@@ -1,66 +1,47 @@
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.canvas.GraphicsContext;
 
-public class Ball {
-    Image ballImage = new Image(this.getClass().getResource("/Ball/ball.png").toExternalForm(), (double)30.0F, (double)30.0F, false, false);
-    ImageView ball_iv;
-    private double Height;
-    private double Width;
-    private double dx;
-    private double dy;
+public class Ball extends MovableObject {
+    private int speed;
+    private int directionX;
+    private int directionY;
 
-    public Ball() {
-        this.ball_iv = new ImageView(this.ballImage);
-        this.Height = (double)48.0F;
-        this.Width = (double)50.0F;
-        this.dx = 0;
-        this.dy = 0;
-    }
-    public double getHeight() {
-        return this.Height;
+    public Ball(int x, int y, int size, int speed, int directionX, int directionY) {
+        super(x, y, size, size, 0, 0);
+        this.speed = speed;
+        this.directionX = directionX;
+        this.directionY = directionY;
     }
 
-    public void setHeight(double height) {
-        this.Height = height;
+    @Override
+    public void update() {
+        super.update();
     }
 
-    public double getWidth() {
-        return this.Width;
+    @Override
+    public void render(GraphicsContext g) {
+
     }
 
-    public void setWidth(double width) {
-        this.Width = width;
+    public int getSpeed() {
+        return speed;
     }
 
-    public double getX() {
-        return this.ball_iv.getX();
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
-    public void setX(double x) {
-        this.ball_iv.setX(x);
+    public int getDirectionX() {
+        return directionX;
+    }
+    public void setDirectionX(int directionX) {
+        this.directionX = directionX;
     }
 
-    public double getY() {
-        return this.ball_iv.getY();
+    public int getDirectionY() {
+        return directionY;
     }
 
-    public void setY(double y) {
-        this.ball_iv.setY(y);
-    }
-
-    public double getDx() {
-        return dx;
-    }
-
-    public void setDx(double dx) {
-        this.dx = dx;
-    }
-
-    public double getDy() {
-        return dy;
-    }
-
-    public void setDy(double dy) {
-        this.dy = dy;
+    public void setDirectionY(int directionY) {
+        this.directionY = directionY;
     }
 }
