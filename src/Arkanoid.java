@@ -50,7 +50,6 @@ public class Arkanoid extends Application {
         gameLoop.start();
         primaryStage.show();
     }
-
     public static void main(String[] args) {
         launch(args);
     }

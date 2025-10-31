@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 public class Paddle extends MovableObject {
     protected int speed;
     private Image paddleImage;
+
     public Paddle(int x, int y, int width, int height, int speed, Image paddleImage) {
         super(x, y, width, height, 0, 0);
         this.speed = speed;
