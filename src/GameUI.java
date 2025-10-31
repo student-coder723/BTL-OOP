@@ -1,19 +1,11 @@
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
+import javafx.scene.canvas.GraphicsContext;
 
 public class GameUI {
+    public GameUI() {
 
-    private Pane rootPane;
-
-    public GameUI(Pane root) {
-        this.rootPane = root;
     }
 
-    public void addObject(Node node) {
-        rootPane.getChildren().add(node);
-    }
+    public void render(GraphicsContext gc) {
 
-    public void removeObject(Node node) {
-        rootPane.getChildren().remove(node);
     }
 }
