@@ -1,10 +1,12 @@
-public abstract class GameObject {
-    protected double x;
-    protected double y;
-    protected double width;
-    protected double height;
+import javafx.scene.canvas.GraphicsContext;
 
-    public GameObject(double x, double y, double width, double height) {
+public abstract class GameObject {
+    protected int x;
+    protected int y;
+    protected int width;
+    protected int height;
+
+    public GameObject(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -13,7 +15,17 @@ public abstract class GameObject {
 
     public abstract void update();
 
-    public double getWidth() {
+    public abstract void render(GraphicsContext g);
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getWidth() {
         return width;
     }
 
@@ -21,7 +33,7 @@ public abstract class GameObject {
         this.width = width;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
