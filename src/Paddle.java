@@ -1,6 +1,5 @@
-
 import javafx.scene.canvas.GraphicsContext;
-
+import javafx.scene.paint.Color;
 
 public class Paddle extends MovableObject {
     protected int speed;
@@ -15,8 +14,9 @@ public class Paddle extends MovableObject {
     }
 
     @Override
-    public void render(GraphicsContext gc) {
-
+    public void render (GraphicsContext gc) {
+        gc.setFill(Color.WHITE);
+        gc.fillRect(x, y, width, height);
     }
 
 
