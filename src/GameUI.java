@@ -7,7 +7,6 @@ public class GameUI {
     private Image backgroundImage;
     public GameUI() {
 
-    }
 
     public void render(GraphicsContext gc, int width, int height) {
         if (backgroundImage != null) {
