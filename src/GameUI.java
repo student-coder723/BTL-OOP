@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 public class GameUI {
     private Paddle paddle;
     private Image backgroundImage;
-    public GameUI() {
+    public GameUI() {}
 
 
     public void render(GraphicsContext gc, int width, int height) {
