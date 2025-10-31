@@ -18,7 +18,6 @@ public class Arkanoid extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Arkanoid Game");
 
-
         Pane root = new Pane();
         Canvas canvas = new Canvas(SCENE_WIDTH, SCENE_HEIGHT);
         root.getChildren().add(canvas);
