@@ -28,7 +28,14 @@ public class InputHandler {
         });
 
         scene.setOnMouseClicked(event -> {
-            gameLogic.startGame();
+            GameState gameState = gameLogic.getGameState();
+
+            if (gameState == GameState.READY) {
+                gameLogic.startGame();
+            }
+            else if (gameState == GameState.GAME_OVER) {
+                gameLogic.resetGame();
+            }
         });
     }
 }

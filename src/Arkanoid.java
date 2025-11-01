@@ -70,9 +70,10 @@ public class Arkanoid extends Application {
                 gameLogic.update();
 
                 int score = gameLogic.getScore();
+                int lives = gameLogic.getLives();
                 GameState state = gameLogic.getGameState();
 
-                gameUI.render(gc, SCENE_WIDTH, SCENE_HEIGHT, score, state);
+                gameUI.render(gc, SCENE_WIDTH, SCENE_HEIGHT, score, lives, state);
             }
         };
 

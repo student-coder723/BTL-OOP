@@ -13,8 +13,6 @@ public class Brick extends GameObject {
 
     @Override
     public void update() {
-
-
     }
 
     @Override
@@ -35,5 +33,9 @@ public class Brick extends GameObject {
 
     public void setDestroyed(boolean destroyed) {
         isDestroyed = destroyed;
+    }
+
+    public void reset() {
+        this.isDestroyed = false;
     }
 }
