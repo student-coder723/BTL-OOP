@@ -8,12 +8,15 @@ public class GameLogic {
     private GameState gameState;
     private int sceneHeight;
 
+    private int score;
+
     public GameLogic(Ball ball, Paddle paddle, List<Brick> bricks, int sceneHeight) {
         this.ball = ball;
         this.paddle = paddle;
         this.bricks = bricks;
         this.sceneHeight = sceneHeight;
         this.gameState = GameState.READY;
+        this.score = 0;
     }
 
     public void update() {
@@ -61,8 +64,26 @@ public class GameLogic {
             if (!brick.isDestroyed() && ball.checkCollision(brick)) {
                 ball.reverseDirectionY();
                 brick.setDestroyed(true);
+                this.score += 10;
                 break;
             }
         }
     }
+
+    public int getScore(){
+        return score;
+    }
+
+    public void setScore(int score){
+        this.score = score;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
 }

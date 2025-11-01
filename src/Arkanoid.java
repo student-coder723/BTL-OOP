@@ -68,7 +68,11 @@ public class Arkanoid extends Application {
             @Override
             public void handle(long now) {
                 gameLogic.update();
-                gameUI.render(gc, SCENE_WIDTH, SCENE_HEIGHT);
+
+                int score = gameLogic.getScore();
+                GameState state = gameLogic.getGameState();
+
+                gameUI.render(gc, SCENE_WIDTH, SCENE_HEIGHT, score, state);
             }
         };
 
