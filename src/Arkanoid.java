@@ -23,6 +23,7 @@ public class Arkanoid extends Application {
     private Ball ball;
     private Image backgroundImage;
     private Image paddleImage;
+    private Image ballImage;
 
     @Override
     public void start(Stage primaryStage) {
@@ -40,10 +41,11 @@ public class Arkanoid extends Application {
 
         backgroundImage = ResourceLoader.loadImage("/Background/Background.png");
         paddleImage = ResourceLoader.loadImage("/Paddle/a.png");
+        ballImage = ResourceLoader.loadImage("/Ball/ball.png");
 
         gameUI = new GameUI();
         paddle = new Paddle(SCENE_WIDTH / 2 - 50, SCENE_HEIGHT - 40, 100, 20, 5, paddleImage);
-        ball = new Ball(SCENE_WIDTH / 2, SCENE_HEIGHT / 2, 20, 2, 1, -1, SCENE_WIDTH, SCENE_HEIGHT);
+        ball = new Ball(SCENE_WIDTH / 2, SCENE_HEIGHT / 2, 20, 2, 1, -1, SCENE_WIDTH, SCENE_HEIGHT, ballImage);
         inputHandler = new InputHandler(scene, paddle, SCENE_WIDTH);
 
         bricksList = new ArrayList<>();
