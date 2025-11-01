@@ -1,12 +1,15 @@
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Brick extends GameObject {
     private boolean isDestroyed;
+    private Image brickImage;
 
-    public Brick(int x, int y, int width, int height) {
+    public Brick(int x, int y, int width, int height, Image image) {
         super(x, y, width, height);
         this.isDestroyed = false;
+        this.brickImage = image;
     }
 
     @Override
@@ -18,9 +21,14 @@ public class Brick extends GameObject {
     @Override
     public void render(GraphicsContext gc) {
         if (!isDestroyed) {
-            gc.setFill(Color.WHITE);
-            gc.fillRect(x, y, width, height);
+            if (brickImage != null) {
+                gc.drawImage(brickImage, x, y, width, height);
+            } else {
+                gc.setFill(Color.WHITE);
+                gc.fillRect(x, y, width, height);
+            }
         }
+
     }
 
     public boolean isDestroyed() {
