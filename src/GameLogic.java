@@ -5,16 +5,48 @@ public class GameLogic {
     private Paddle paddle;
     private List<Brick> bricks;
 
-    public GameLogic(Ball ball, Paddle paddle, List<Brick> bricks) {
+    private GameState gameState;
+    private int sceneHeight;
+
+    public GameLogic(Ball ball, Paddle paddle, List<Brick> bricks, int sceneHeight) {
         this.ball = ball;
         this.paddle = paddle;
         this.bricks = bricks;
+        this.sceneHeight = sceneHeight;
+        this.gameState = GameState.READY;
     }
 
     public void update() {
-        ball.update();
         paddle.update();
-        checkCollisions();
+        switch (gameState) {
+            case READY:
+                ball.stickToPaddle(paddle);
+                break;
+            case RUNNING:
+                ball.update();
+                checkCollisions();
+                checkBallOut();
+                break;
+            case PAUSED:
+            case GAME_OVER:
+                break;
+        }
+    }
+
+    public void startGame() {
+        if (gameState == gameState.READY) {
+            gameState = GameState.RUNNING;
+        }
+    }
+
+    private void resetBall() {
+        this.gameState = GameState.READY;
+    }
+
+    private void checkBallOut() {
+        if (ball.getY() + ball.getHeight() >= this.sceneHeight) {
+            resetBall();
+        }
     }
 
     private void checkCollisions() {
