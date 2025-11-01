@@ -13,8 +13,14 @@ public class Ball extends MovableObject {
         this.directionY = directionY;
     }
 
+    private void updateVelocity() {
+        this.dx = this.directionX * this.speed;
+        this.dy = this.directionY * this.speed;
+    }
+
     @Override
     public void update() {
+        updateVelocity();
         super.update();
     }
 
