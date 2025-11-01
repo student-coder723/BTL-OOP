@@ -8,7 +8,6 @@ public class Brick extends GameObject {
 
     public Brick(int x, int y, int width, int height, Image image) {
         super(x, y, width, height);
-        this.isDestroyed = false;
         this.brickImage = image;
     }
 
@@ -28,7 +27,6 @@ public class Brick extends GameObject {
                 gc.fillRect(x, y, width, height);
             }
         }
-
     }
 
     public boolean isDestroyed() {
