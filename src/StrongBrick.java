@@ -12,8 +12,5 @@ public class StrongBrick extends Brick {
     }
 
     @Override
-    public void render(GraphicsContext g) {
-
-
     }
 }
