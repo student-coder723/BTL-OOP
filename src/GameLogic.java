@@ -1,10 +1,14 @@
+import java.util.List;
+
 public class GameLogic {
     private Ball ball;
     private Paddle paddle;
+    private List<Brick> bricks;
 
-    public GameLogic(Ball ball, Paddle paddle) {
+    public GameLogic(Ball ball, Paddle paddle, List<Brick> bricks) {
         this.ball = ball;
         this.paddle = paddle;
+        this.bricks = bricks;
     }
 
     public void update() {
@@ -18,6 +22,12 @@ public class GameLogic {
             if (ball.getDirectionY() > 0) {
                 ball.reverseDirectionY();
                 ball.setY(paddle.getY() - ball.getHeight() - 1);
+            }
+        }
+
+        for (Brick brick : bricks) {
+            if (!brick.isDestroyed() && ball.checkCollision(brick)) {
+                ball.reverseDirectionY();
             }
         }
     }

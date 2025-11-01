@@ -46,7 +46,6 @@ public class Arkanoid extends Application {
         ball = new Ball(SCENE_WIDTH / 2, SCENE_HEIGHT / 2, 20, 2, 1, -1, SCENE_WIDTH, SCENE_HEIGHT);
         inputHandler = new InputHandler(scene, paddle, SCENE_WIDTH);
 
-        gameLogic = new GameLogic(ball, paddle);
         bricksList = new ArrayList<>();
         initBricks();
 
@@ -55,6 +54,7 @@ public class Arkanoid extends Application {
         gameUI.setBall(ball);
         gameUI.setBricks(bricksList);
 
+        gameLogic = new GameLogic(ball, paddle, bricksList);
         inputHandler.registerHandlers();
 
         AnimationTimer gameLoop = new AnimationTimer() {
@@ -71,10 +71,10 @@ public class Arkanoid extends Application {
 
     private void initBricks() {
         int brickRows = 5;
-        int brickCols = 10;
+        int brickCols = 7;
         int brickWidth = 60;
         int brickHeight = 20;
-        int padding = 10;
+        int padding = 5;
         int offsetTop = 50;
         int offsetLeft = 60;
 
