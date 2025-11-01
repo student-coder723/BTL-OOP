@@ -9,6 +9,7 @@ public class GameLogic {
     private int sceneHeight;
 
     private int score;
+    private int lives;
 
     public GameLogic(Ball ball, Paddle paddle, List<Brick> bricks, int sceneHeight) {
         this.ball = ball;
@@ -17,6 +18,7 @@ public class GameLogic {
         this.sceneHeight = sceneHeight;
         this.gameState = GameState.READY;
         this.score = 0;
+        this.lives = 3;
     }
 
     public void update() {
@@ -42,13 +44,31 @@ public class GameLogic {
         }
     }
 
+    public void resetGame() {
+        this.lives = 3;
+        this.score = 0;
+
+        for (Brick brick : bricks) {
+            brick.reset();
+        }
+
+        resetBall();
+    }
+
     private void resetBall() {
         this.gameState = GameState.READY;
     }
 
     private void checkBallOut() {
         if (ball.getY() + ball.getHeight() >= this.sceneHeight) {
-            resetBall();
+            this.lives--;
+
+            if (lives == 0){
+                this.gameState = GameState.GAME_OVER;
+            }
+            else {
+                resetBall();
+            }
         }
     }
 
@@ -86,4 +106,11 @@ public class GameLogic {
         this.gameState = gameState;
     }
 
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
 }

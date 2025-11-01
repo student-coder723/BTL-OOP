@@ -12,20 +12,23 @@ public class GameUI {
     private Image backgroundImage;
     private List<Brick> bricks;
     private Font uiFont;
+    private Font gameOverFont;
 
     public GameUI() {
         this.bricks = new ArrayList<>();
 
         try {
             this.uiFont = Font.font("Verdana", 20);
+            this.gameOverFont = Font.font("Verdana", 40);
         } catch (Exception e) {
             System.err.println("Lỗi");
             this.uiFont = Font.font(20);
+            this.gameOverFont = Font.font(40);
         }
 
     }
 
-    public void render(GraphicsContext gc, int width, int height, int score, GameState state) {
+    public void render(GraphicsContext gc, int width, int height, int score, int lives, GameState state) {
         if (backgroundImage != null) {
             gc.drawImage(backgroundImage, 0, 0, width, height);
         } else {
@@ -53,6 +56,8 @@ public class GameUI {
         gc.setTextAlign(TextAlignment.LEFT);
         gc.fillText("Score: " + score, 10, 30);
 
+        gc.setTextAlign(TextAlignment.RIGHT);
+        gc.fillText("Lives: ".concat(String.valueOf(lives)), width - 10, 30);
 
         gc.setTextAlign(TextAlignment.CENTER);
 
@@ -61,6 +66,12 @@ public class GameUI {
             gc.setFill(Color.YELLOW);
             gc.fillText("Click to Start", width / 2.0, height / 2.0);
         }
+        else if (state == GameState.GAME_OVER) {
+            gc.setFont(gameOverFont);
+            gc.setFill(Color.RED);
+            gc.fillText("GAME OVER", width / 2.0, height / 2.0);
+        }
+
 
     }
 
