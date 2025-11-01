@@ -23,6 +23,13 @@ public class Arkanoid extends Application {
     private Ball ball;
     private Image backgroundImage;
     private Image paddleImage;
+    private Image ballImage;
+
+    private Image brickImage1;
+    private Image brickImage2;
+    private Image brickImage3;
+    private Image brickImage4;
+    private Image brickImage5;
 
     @Override
     public void start(Stage primaryStage) {
@@ -38,12 +45,11 @@ public class Arkanoid extends Application {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        backgroundImage = ResourceLoader.loadImage("/Background/Background.png");
-        paddleImage = ResourceLoader.loadImage("/Paddle/a.png");
+        loadResources();
 
         gameUI = new GameUI();
         paddle = new Paddle(SCENE_WIDTH / 2 - 50, SCENE_HEIGHT - 40, 100, 20, 5, paddleImage);
-        ball = new Ball(SCENE_WIDTH / 2, SCENE_HEIGHT / 2, 20, 2, 1, -1, SCENE_WIDTH, SCENE_HEIGHT);
+        ball = new Ball(SCENE_WIDTH / 2, SCENE_HEIGHT / 2, 20, 2, 1, -1, SCENE_WIDTH, SCENE_HEIGHT, ballImage);
         inputHandler = new InputHandler(scene, paddle, SCENE_WIDTH);
 
         bricksList = new ArrayList<>();
@@ -69,6 +75,18 @@ public class Arkanoid extends Application {
         primaryStage.show();
     }
 
+    private void loadResources() {
+        backgroundImage = ResourceLoader.loadImage("/Background/Background.png");
+        paddleImage = ResourceLoader.loadImage("/Paddle/a.png");
+        ballImage = ResourceLoader.loadImage("/Ball/ball.png");
+
+        brickImage1 = ResourceLoader.loadImage("/Brick/normal brick1.png");
+        brickImage2 = ResourceLoader.loadImage("/Brick/normal brick2.png");
+        brickImage3 = ResourceLoader.loadImage("/Brick/normal brick3.png");
+        brickImage4 = ResourceLoader.loadImage("/Brick/normal brick4.png");
+        brickImage5 = ResourceLoader.loadImage("/Brick/normal brick5.png");
+    }
+
     private void initBricks() {
         int brickRows = 5;
         int brickCols = 7;
@@ -78,17 +96,17 @@ public class Arkanoid extends Application {
         int offsetTop = 50;
         int offsetLeft = 60;
 
+        Image[] brickImages = {brickImage1, brickImage2, brickImage3, brickImage4, brickImage5};
+
         for (int i = 0; i < brickRows; i++) {
             for (int j = 0; j < brickCols; j++) {
 
                 int x = offsetLeft + j * (brickWidth + padding);
                 int y = offsetTop + i * (brickHeight + padding);
 
-                if ((i + j) % 2 == 0) {
-                    bricksList.add(new NormalBrick(x, y, brickWidth, brickHeight));
-                } else {
-                    bricksList.add(new StrongBrick(x, y, brickWidth, brickHeight));
-                }
+                Image currentImage = brickImages[i % 5];
+
+                bricksList.add(new NormalBrick(x, y, brickWidth, brickHeight, currentImage));
             }
         }
     }

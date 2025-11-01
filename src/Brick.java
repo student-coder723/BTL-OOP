@@ -6,7 +6,6 @@ public class Brick extends GameObject {
 
     public Brick(int x, int y, int width, int height) {
         super(x, y, width, height);
-        this.isDestroyed = false;
     }
 
     @Override
@@ -17,10 +16,8 @@ public class Brick extends GameObject {
 
     @Override
     public void render(GraphicsContext gc) {
-        if (!isDestroyed) {
-            gc.setFill(Color.WHITE);
-            gc.fillRect(x, y, width, height);
-        }
+        gc.setFill(Color.WHITE);
+        gc.fillRect(x, y, width, height);
     }
 
     public boolean isDestroyed() {

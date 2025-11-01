@@ -1,8 +1,9 @@
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public class StrongBrick extends Brick {
-    public StrongBrick(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public StrongBrick(int x, int y, int width, int height, Image image) {
+        super(x, y, width, height, image);
     }
 
     @Override
