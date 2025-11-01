@@ -5,23 +5,59 @@ public class Ball extends MovableObject {
     private int speed;
     private int directionX;
     private int directionY;
+    private int sceneWidth;
+    private int sceneHeight;
 
-    public Ball(int x, int y, int size, int speed, int directionX, int directionY) {
+    public Ball(int x, int y, int size, int speed, int directionX, int directionY, int sceneWidth, int sceneHeight) {
         super(x, y, size, size,0, 0);
         this.speed = speed;
         this.directionX = directionX;
         this.directionY = directionY;
+        this.sceneWidth = sceneWidth;
+        this.sceneHeight = sceneHeight;
+    }
+
+    private void updateVelocity() {
+        this.dx = this.directionX * this.speed;
+        this.dy = this.directionY * this.speed;
     }
 
     @Override
     public void update() {
+        updateVelocity();
         super.update();
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        gc.setFill(Color.RED);
+        gc.setFill(Color.YELLOW);
         gc.fillOval(x, y, width, height);
+        checkWallCollision();
+    }
+
+    public void reverseDirectionX() {
+        this.directionX = -this.directionX;
+    }
+
+    public void reverseDirectionY() {
+        this.directionY = -this.directionY;
+    }
+
+    private void checkWallCollision() {
+        if (x <= 0) {
+            setX(0);
+            reverseDirectionX();
+        } else if (x + width >= sceneWidth) {
+            setX(sceneWidth - width);
+            reverseDirectionX();
+        }
+        if (y <= 0) {
+            setY(0);
+            reverseDirectionY();
+        } else if (y + height >= sceneHeight) {
+            setY(sceneHeight - height);
+            reverseDirectionY();
+        }
     }
 
     public int getSpeed() {
