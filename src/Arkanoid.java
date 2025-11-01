@@ -17,6 +17,7 @@ public class Arkanoid extends Application {
     private List<Brick> bricksList;
 
     private GameUI gameUI;
+    private InputHandler inputHandler;
     private Paddle paddle;
     private Ball ball;
     private Image backgroundImage;
@@ -43,6 +44,11 @@ public class Arkanoid extends Application {
         paddle = new Paddle(SCENE_WIDTH / 2 - 50, SCENE_HEIGHT - 40, 100, 20, 5, paddleImage);
         ball = new Ball(SCENE_WIDTH / 2, SCENE_HEIGHT / 2, 20, 2, 1, -1, SCENE_WIDTH, SCENE_HEIGHT);
 
+        inputHandler = new InputHandler(scene, paddle, SCENE_WIDTH);
+
+        bricksList = new ArrayList<>();
+        initBricks();
+
         bricksList = new ArrayList<>();
         initBricks();
 
@@ -51,9 +57,12 @@ public class Arkanoid extends Application {
         gameUI.setBall(ball);
         gameUI.setBricks(bricksList);
 
+        inputHandler.registerHandlers();
+
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                paddle.update();
                 ball.update();
                 gameUI.render(gc, SCENE_WIDTH, SCENE_HEIGHT);
             }
