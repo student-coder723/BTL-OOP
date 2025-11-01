@@ -8,12 +8,20 @@ public class GameLogic {
     private GameState gameState;
     private int sceneHeight;
 
-    public GameLogic(Ball ball, Paddle paddle, List<Brick> bricks, int sceneHeight) {
+    private int score;
+    private int lives;
+
+    private SoundManager soundManager;
+
+    public GameLogic(Ball ball, Paddle paddle, List<Brick> bricks, int sceneHeight, SoundManager soundManager) {
         this.ball = ball;
         this.paddle = paddle;
         this.bricks = bricks;
         this.sceneHeight = sceneHeight;
         this.gameState = GameState.READY;
+        this.score = 0;
+        this.lives = 3;
+        this.soundManager = soundManager;
     }
 
     public void update() {
@@ -39,13 +47,35 @@ public class GameLogic {
         }
     }
 
+    public void resetGame() {
+        this.lives = 3;
+        this.score = 0;
+
+        for (Brick brick : bricks) {
+            brick.reset();
+        }
+
+        resetBall();
+    }
+
     private void resetBall() {
         this.gameState = GameState.READY;
     }
 
     private void checkBallOut() {
         if (ball.getY() + ball.getHeight() >= this.sceneHeight) {
-            resetBall();
+            this.lives--;
+
+            if (lives <= 0){
+                this.gameState = GameState.GAME_OVER;
+
+                if (soundManager != null) {
+                    soundManager.playGameOver();
+                }
+            }
+            else {
+                resetBall();
+            }
         }
     }
 
@@ -61,8 +91,37 @@ public class GameLogic {
             if (!brick.isDestroyed() && ball.checkCollision(brick)) {
                 ball.reverseDirectionY();
                 brick.setDestroyed(true);
+                this.score += 10;
+
+                if (soundManager != null) {
+                    soundManager.playBrickBreak();
+                }
                 break;
             }
         }
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public void setScore(int score){
+        this.score = score;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 }
