@@ -1,4 +1,5 @@
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Ball extends MovableObject {
@@ -7,14 +8,16 @@ public class Ball extends MovableObject {
     private int directionY;
     private int sceneWidth;
     private int sceneHeight;
+    private Image ballImage;
 
-    public Ball(int x, int y, int size, int speed, int directionX, int directionY, int sceneWidth, int sceneHeight) {
+    public Ball(int x, int y, int size, int speed, int directionX, int directionY, int sceneWidth, int sceneHeight, Image image) {
         super(x, y, size, size,0, 0);
         this.speed = speed;
         this.directionX = directionX;
         this.directionY = directionY;
         this.sceneWidth = sceneWidth;
         this.sceneHeight = sceneHeight;
+        this.ballImage = image;
     }
 
     private void updateVelocity() {
@@ -30,8 +33,13 @@ public class Ball extends MovableObject {
 
     @Override
     public void render(GraphicsContext gc) {
-        gc.setFill(Color.YELLOW);
-        gc.fillOval(x, y, width, height);
+        if (ballImage != null) {
+            gc.drawImage(ballImage, x, y, width, height);
+        } else {
+            gc.setFill(Color.YELLOW);
+            gc.fillOval(x, y, width, height);
+        }
+
         checkWallCollision();
     }
 
