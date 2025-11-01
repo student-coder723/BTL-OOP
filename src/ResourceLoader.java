@@ -1,6 +1,9 @@
 import javafx.scene.image.Image;
 import java.io.InputStream;
 
+import javafx.scene.media.AudioClip;
+import java.net.URL;
+
 public class ResourceLoader {
     public static Image loadImage(String path) {
         try {
@@ -11,6 +14,21 @@ public class ResourceLoader {
             return new Image(imageStream);
         } catch (Exception e) {
             System.err.println("Error");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static AudioClip loadAudioClip(String path) {
+        try {
+            URL resourceUrl = ResourceLoader.class.getResource(path);
+            if (resourceUrl == null) {
+                throw new NullPointerException("lỗi " + path);
+            }
+            return new AudioClip(resourceUrl.toExternalForm());
+        }
+        catch (Exception e) {
+            System.err.println("Lỗi" + path);
             e.printStackTrace();
             return null;
         }

@@ -4,13 +4,11 @@ public class InputHandler {
     private final Scene scene;
     private final Paddle paddle;
     private final int sceneWidth;
-    private final GameLogic gameLogic;
 
-    public InputHandler(Scene scene, Paddle paddle, int sceneWidth, GameLogic gameLogic) {
+    public InputHandler(Scene scene, Paddle paddle, int sceneWidth) {
         this.scene = scene;
         this.paddle = paddle;
         this.sceneWidth = sceneWidth;
-        this.gameLogic = gameLogic;
     }
 
     public void registerHandlers() {
@@ -25,10 +23,6 @@ public class InputHandler {
                 newX = maxPaddleX;
             }
             paddle.setX(newX);
-        });
-
-        scene.setOnMouseClicked(event -> {
-            gameLogic.startGame();
         });
     }
 }
