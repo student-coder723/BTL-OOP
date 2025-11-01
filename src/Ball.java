@@ -39,7 +39,6 @@ public class Ball extends MovableObject {
             gc.setFill(Color.YELLOW);
             gc.fillOval(x, y, width, height);
         }
-
         checkWallCollision();
     }
 
@@ -68,6 +67,10 @@ public class Ball extends MovableObject {
         }
     }
 
+    public void stickToPaddle(Paddle paddle) {
+        this.x = paddle.getX() + (paddle.getWidth() / 2) - (this.width / 2);
+        this.y = paddle.getY() - this.height;
+    }
     public int getSpeed() {
         return speed;
     }
