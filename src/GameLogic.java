@@ -28,6 +28,8 @@ public class GameLogic {
         for (Brick brick : bricks) {
             if (!brick.isDestroyed() && ball.checkCollision(brick)) {
                 ball.reverseDirectionY();
+                brick.setDestroyed(true);
+                break;
             }
         }
     }
