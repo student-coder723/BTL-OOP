@@ -31,6 +31,8 @@ public class Arkanoid extends Application {
     private Image brickImage4;
     private Image brickImage5;
 
+    private SoundManager soundManager;
+
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Arkanoid Game");
@@ -47,12 +49,14 @@ public class Arkanoid extends Application {
 
         loadResources();
 
+        soundManager = new SoundManager();
+
         gameUI = new GameUI();
         paddle = new Paddle(SCENE_WIDTH / 2 - 50, SCENE_HEIGHT - 40, 100, 20, 5, paddleImage);
         ball = new Ball(SCENE_WIDTH / 2, SCENE_HEIGHT / 2, 20, 2, 1, -1, SCENE_WIDTH, SCENE_HEIGHT, ballImage);
         bricksList = new ArrayList<>();
 
-        gameLogic = new GameLogic(ball, paddle, bricksList, SCENE_HEIGHT);
+        gameLogic = new GameLogic(ball, paddle, bricksList, SCENE_HEIGHT, soundManager);
         inputHandler = new InputHandler(scene, paddle, SCENE_WIDTH, gameLogic);
 
         initBricks();
