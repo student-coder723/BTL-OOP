@@ -10,9 +10,11 @@ public class GameUI {
     private Paddle paddle;
     private Ball ball;
     private Image backgroundImage;
+    private Image heartImage;
     private List<Brick> bricks;
     private Font uiFont;
     private Font gameOverFont;
+    private List<PowerUp> powerUps;
 
     public GameUI() {
         this.bricks = new ArrayList<>();
@@ -25,7 +27,6 @@ public class GameUI {
             this.uiFont = Font.font(20);
             this.gameOverFont = Font.font(40);
         }
-
     }
 
     public void render(GraphicsContext gc, int width, int height, int score, int lives, GameState state) {
@@ -56,18 +57,34 @@ public class GameUI {
             brick.render(gc);
         }
 
+        for (PowerUp powerUp : powerUps) {
+            powerUp.render(gc);
+        }
+
         gc.setFill(Color.WHITE);
         gc.setFont(uiFont);
-
 
         gc.setTextAlign(TextAlignment.LEFT);
         gc.fillText("Score: " + score, 10, 30);
 
-        gc.setTextAlign(TextAlignment.RIGHT);
-        gc.fillText("Lives: ".concat(String.valueOf(lives)), width - 10, 30);
+        if (heartImage != null) {
+            int heartWidth = 25;
+            int heartHeight = 25;
+            int padding = 5;
 
-        gc.setTextAlign(TextAlignment.CENTER);
+            int startX = width - 10 - heartWidth;
+            int yPos = 10;
 
+            for (int i = 0; i < lives; i++) {
+                int xPos = startX - (i * (heartWidth + padding));
+                gc.drawImage(heartImage, xPos, yPos, heartWidth, heartHeight);
+            }
+        } else {
+            gc.setTextAlign(TextAlignment.RIGHT);
+            gc.fillText("Lives: ".concat(String.valueOf(lives)), width - 10, 30);
+        }
+
+            gc.setTextAlign(TextAlignment.CENTER);
 
         if (state == GameState.READY) {
             gc.setFill(Color.YELLOW);
@@ -84,6 +101,14 @@ public class GameUI {
         }
 
 
+    }
+
+    public void setPowerUps(List<PowerUp> powerUps) {
+        this.powerUps = powerUps;
+    }
+
+    public void setHeartImage(Image image) {
+        this.heartImage = image;
     }
 
     public Paddle getPaddle(){
