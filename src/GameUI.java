@@ -14,6 +14,7 @@ public class GameUI {
     private List<Brick> bricks;
     private Font uiFont;
     private Font gameOverFont;
+    private List<PowerUp> powerUps;
 
     public GameUI() {
         this.bricks = new ArrayList<>();
@@ -56,6 +57,10 @@ public class GameUI {
             brick.render(gc);
         }
 
+        for (PowerUp powerUp : powerUps) {
+            powerUp.render(gc);
+        }
+
         gc.setFill(Color.WHITE);
         gc.setFont(uiFont);
 
@@ -96,6 +101,10 @@ public class GameUI {
         }
 
 
+    }
+
+    public void setPowerUps(List<PowerUp> powerUps) {
+        this.powerUps = powerUps;
     }
 
     public void setHeartImage(Image image) {
