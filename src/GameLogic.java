@@ -22,7 +22,7 @@ public class GameLogic {
         this.soundManager = soundManager;
     }
 
-    public void update() {
+    public boolean update() {
         paddle.update();
         switch (gameState) {
             case READY:
@@ -34,11 +34,25 @@ public class GameLogic {
                 ball.update();
                 checkCollisions();
                 checkBallOut();
+                if (checkWin()) {
+                    resetBall();
+                    return true;
+                }
                 break;
             case PAUSED:
             case GAME_OVER:
                 break;
         }
+        return false;
+    }
+
+    private boolean checkWin() {
+        for (Brick brick : bricks) {
+            if (!brick.isDestroyed()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void startGame() {
