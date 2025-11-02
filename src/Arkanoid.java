@@ -31,6 +31,7 @@ public class Arkanoid extends Application {
     private Image brickImage4;
     private Image brickImage5;
     private Image brickBrokenImage;
+    private Image heartImage;
 
     private SoundManager soundManager;
 
@@ -66,9 +67,9 @@ public class Arkanoid extends Application {
         gameUI.setPaddle(paddle);
         gameUI.setBall(ball);
         gameUI.setBricks(bricksList);
+        gameUI.setHeartImage(heartImage);
 
         inputHandler.registerHandlers();
-
         soundManager.playMusic();
 
         AnimationTimer gameLoop = new AnimationTimer() {
@@ -107,6 +108,7 @@ public class Arkanoid extends Application {
         brickImage5 = ResourceLoader.loadImage("/Brick/normal brick5.png");
 
         brickBrokenImage = ResourceLoader.loadImage("/Brick/broken brick1.png");
+        heartImage = ResourceLoader.loadImage("/Power Up/heart.png");
     }
 
     private void initBricks() {
