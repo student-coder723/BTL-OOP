@@ -1,4 +1,7 @@
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
 public class GameLogic {
     private Ball ball;
@@ -11,6 +14,9 @@ public class GameLogic {
 
     private SoundManager soundManager;
 
+    private List<PowerUp> activePowerUps;
+    private Random random;
+
     public GameLogic(Ball ball, Paddle paddle, List<Brick> bricks, int sceneHeight, SoundManager soundManager) {
         this.ball = ball;
         this.paddle = paddle;
@@ -20,6 +26,8 @@ public class GameLogic {
         this.score = 0;
         this.lives = 3;
         this.soundManager = soundManager;
+        this.activePowerUps = new ArrayList<>();
+        this.random = new Random();
     }
 
     public boolean update() {
@@ -32,8 +40,10 @@ public class GameLogic {
             case RUNNING:
                 paddle.update();
                 ball.update();
+                updatePowerUps();
                 checkCollisions();
                 checkBallOut();
+
                 if (checkWin()) {
                     resetBall();
                     return true;
@@ -55,6 +65,19 @@ public class GameLogic {
         return true;
     }
 
+    private void updatePowerUps() {
+        Iterator<PowerUp> iterator = activePowerUps.iterator();
+        while (iterator.hasNext()) {
+            PowerUp powerUp = iterator.next();
+            powerUp.update();
+
+            if (powerUp.getY() > this.sceneHeight) {
+                iterator.remove();
+            }
+        }
+    }
+
+
     public void startGame() {
         if (gameState == gameState.READY) {
             gameState = GameState.RUNNING;
@@ -68,6 +91,8 @@ public class GameLogic {
         for (Brick brick : bricks) {
             brick.reset();
         }
+
+        activePowerUps.clear();
 
         resetBall();
 
@@ -115,9 +140,27 @@ public class GameLogic {
                 if (soundManager != null) {
                     soundManager.playBrickBreak();
                 }
+                if (random.nextInt(5) == 0) {
+                    spawnPowerUp(brick.getX(), brick.getY());
+                }
                 break;
             }
         }
+        Iterator<PowerUp> iterator = activePowerUps.iterator();
+        while (iterator.hasNext()) {
+            PowerUp powerUp = iterator.next();
+
+            if (!powerUp.getIsEat() && powerUp.checkCollision(paddle)) {
+                powerUp.applyEffect(this, paddle, ball);
+                powerUp.setIsEat(true);
+                iterator.remove();
+            }
+        }
+
+    }
+
+    private void spawnPowerUp(int x, int y) {
+        activePowerUps.add(new AddLifePowerUp(x, y));
     }
 
     public void Pause() {
@@ -127,6 +170,18 @@ public class GameLogic {
             this.gameState = GameState.RUNNING;
         }
     }
+
+    public void addLife() {
+        if (this.lives < 5) {
+            this.lives++;
+        }
+    }
+
+    public List<PowerUp> getActivePowerUps() {
+        return activePowerUps;
+    }
+
+
 
     public int getScore(){
         return score;

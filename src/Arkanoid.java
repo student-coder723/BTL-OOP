@@ -68,6 +68,7 @@ public class Arkanoid extends Application {
         gameUI.setBall(ball);
         gameUI.setBricks(bricksList);
         gameUI.setHeartImage(heartImage);
+        gameUI.setPowerUps(gameLogic.getActivePowerUps());
 
         inputHandler.registerHandlers();
         soundManager.playMusic();
