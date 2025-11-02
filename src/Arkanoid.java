@@ -34,8 +34,6 @@ public class Arkanoid extends Application {
 
     private SoundManager soundManager;
 
-    private SoundManager soundManager;
-
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Arkanoid Game");
@@ -70,6 +68,8 @@ public class Arkanoid extends Application {
         gameUI.setBricks(bricksList);
 
         inputHandler.registerHandlers();
+
+        soundManager.playMusic();
 
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
