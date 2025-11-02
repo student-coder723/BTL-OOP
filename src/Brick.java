@@ -2,9 +2,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-public class Brick extends GameObject {
+public abstract class Brick extends GameObject {
     private boolean isDestroyed;
-    private Image brickImage;
+    protected Image brickImage;
 
     public Brick(int x, int y, int width, int height, Image image) {
         super(x, y, width, height);
@@ -26,6 +26,8 @@ public class Brick extends GameObject {
             }
         }
     }
+
+    public abstract int handleCollision();
 
     public boolean isDestroyed() {
         return isDestroyed;

@@ -11,9 +11,7 @@ public class GameLogic {
     private int score;
     private int lives;
 
-    private SoundManager soundManager;
-
-    public GameLogic(Ball ball, Paddle paddle, List<Brick> bricks, int sceneHeight, SoundManager soundManager) {
+    public GameLogic(Ball ball, Paddle paddle, List<Brick> bricks, int sceneHeight) {
         this.ball = ball;
         this.paddle = paddle;
         this.bricks = bricks;
@@ -21,7 +19,6 @@ public class GameLogic {
         this.gameState = GameState.READY;
         this.score = 0;
         this.lives = 3;
-        this.soundManager = soundManager;
     }
 
     public void update() {
@@ -66,12 +63,8 @@ public class GameLogic {
         if (ball.getY() + ball.getHeight() >= this.sceneHeight) {
             this.lives--;
 
-            if (lives <= 0){
+            if (lives == 0){
                 this.gameState = GameState.GAME_OVER;
-
-                if (soundManager != null) {
-                    soundManager.playGameOver();
-                }
             }
             else {
                 resetBall();
@@ -92,10 +85,6 @@ public class GameLogic {
                 ball.reverseDirectionY();
                 brick.setDestroyed(true);
                 this.score += 10;
-
-                if (soundManager != null) {
-                    soundManager.playBrickBreak();
-                }
                 break;
             }
         }
