@@ -89,10 +89,10 @@ public class GameLogic {
 
         for (Brick brick : bricks) {
             if (!brick.isDestroyed() && ball.checkCollision(brick)) {
+                int score_ = brick.handleCollision();
                 ball.reverseDirectionY();
-                brick.setDestroyed(true);
-                this.score += 10;
 
+                this.score += score_;
                 if (soundManager != null) {
                     soundManager.playBrickBreak();
                 }

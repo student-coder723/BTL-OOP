@@ -13,5 +13,12 @@ public class NormalBrick extends Brick {
     public void render(GraphicsContext gc) {
         super.render(gc);
     }
+
+    @Override
+    public int handleCollision() {
+        setDestroyed(true);
+        return 10;
+    }
+
 }
 
