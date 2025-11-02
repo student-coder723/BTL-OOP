@@ -72,8 +72,10 @@ public class Arkanoid extends Application {
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                gameLogic.update();
-
+                boolean levelWin = gameLogic.update();
+                if (levelWin) {
+                    nextLevel();
+                }
                 int score = gameLogic.getScore();
                 int lives = gameLogic.getLives();
                 GameState state = gameLogic.getGameState();
@@ -84,6 +86,11 @@ public class Arkanoid extends Application {
 
         gameLoop.start();
         primaryStage.show();
+    }
+
+    private void nextLevel() {
+        bricksList.clear();
+        initBricks();
     }
 
     private void loadResources() {

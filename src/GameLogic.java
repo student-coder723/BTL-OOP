@@ -4,10 +4,8 @@ public class GameLogic {
     private Ball ball;
     private Paddle paddle;
     private List<Brick> bricks;
-
     private GameState gameState;
     private int sceneHeight;
-
     private int score;
     private int lives;
 
@@ -24,21 +22,37 @@ public class GameLogic {
         this.soundManager = soundManager;
     }
 
-    public void update() {
+    public boolean update() {
         paddle.update();
         switch (gameState) {
             case READY:
+                paddle.update();
                 ball.stickToPaddle(paddle);
                 break;
             case RUNNING:
+                paddle.update();
                 ball.update();
                 checkCollisions();
                 checkBallOut();
+                if (checkWin()) {
+                    resetBall();
+                    return true;
+                }
                 break;
             case PAUSED:
             case GAME_OVER:
                 break;
         }
+        return false;
+    }
+
+    private boolean checkWin() {
+        for (Brick brick : bricks) {
+            if (!brick.isDestroyed()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void startGame() {
@@ -98,6 +112,14 @@ public class GameLogic {
                 }
                 break;
             }
+        }
+    }
+
+    public void Pause() {
+        if (this.gameState == GameState.RUNNING) {
+            this.gameState = GameState.PAUSED;
+        } else if (this.gameState == GameState.PAUSED) {
+            this.gameState = GameState.RUNNING;
         }
     }
 
