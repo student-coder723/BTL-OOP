@@ -70,6 +70,10 @@ public class GameLogic {
         }
 
         resetBall();
+
+        if (soundManager != null) {
+            soundManager.playMusic();
+        }
     }
 
     private void resetBall() {
@@ -84,6 +88,7 @@ public class GameLogic {
                 this.gameState = GameState.GAME_OVER;
 
                 if (soundManager != null) {
+                    soundManager.stopMusic();
                     soundManager.playGameOver();
                 }
             }

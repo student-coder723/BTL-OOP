@@ -69,6 +69,8 @@ public class Arkanoid extends Application {
 
         inputHandler.registerHandlers();
 
+        soundManager.playMusic();
+
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
