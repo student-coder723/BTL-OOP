@@ -30,6 +30,7 @@ public class Arkanoid extends Application {
     private Image brickImage3;
     private Image brickImage4;
     private Image brickImage5;
+    private Image brickBrokenImage;
 
     private SoundManager soundManager;
 
@@ -95,6 +96,8 @@ public class Arkanoid extends Application {
         brickImage3 = ResourceLoader.loadImage("/Brick/normal brick3.png");
         brickImage4 = ResourceLoader.loadImage("/Brick/normal brick4.png");
         brickImage5 = ResourceLoader.loadImage("/Brick/normal brick5.png");
+
+        brickBrokenImage = ResourceLoader.loadImage("/Brick/broken brick1.png");
     }
 
     private void initBricks() {
@@ -114,9 +117,14 @@ public class Arkanoid extends Application {
                 int x = offsetLeft + j * (brickWidth + padding);
                 int y = offsetTop + i * (brickHeight + padding);
 
-                Image currentImage = brickImages[i % 5];
+                Image image = brickImages[i % 5];
 
-                bricksList.add(new NormalBrick(x, y, brickWidth, brickHeight, currentImage));
+                if (i == 0) {
+                    bricksList.add(new StrongBrick(x, y, brickWidth, brickHeight, image, brickBrokenImage));
+                } else {
+                    bricksList.add(new NormalBrick(x, y, brickWidth, brickHeight, image));
+                }
+
             }
         }
     }
