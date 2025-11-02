@@ -1,4 +1,5 @@
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 
 public class InputHandler {
     private final Scene scene;
@@ -35,6 +36,12 @@ public class InputHandler {
             }
             else if (gameState == GameState.GAME_OVER) {
                 gameLogic.resetGame();
+            }
+        });
+
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.P) {
+                gameLogic.Pause();
             }
         });
     }

@@ -44,6 +44,13 @@ public class GameUI {
             if (ball != null) {
                 ball.render(gc);
             }
+        } else if (state == GameState.PAUSED) {
+            if (paddle != null) {
+                paddle.render(gc);
+            }
+            if (ball != null) {
+                ball.render(gc);
+            }
         }
         for (Brick brick : bricks) {
             brick.render(gc);
@@ -70,6 +77,10 @@ public class GameUI {
             gc.setFont(gameOverFont);
             gc.setFill(Color.RED);
             gc.fillText("GAME OVER", width / 2.0, height / 2.0);
+        } else if (state == GameState.PAUSED) {
+            gc.setFont(gameOverFont);
+            gc.setFill(Color.RED);
+            gc.fillText("PAUSED", width / 2.0, height / 2.0);
         }
 
 
