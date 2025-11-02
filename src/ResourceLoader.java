@@ -3,6 +3,7 @@ import java.io.InputStream;
 
 import javafx.scene.media.AudioClip;
 import java.net.URL;
+import javafx.scene.media.Media;
 
 public class ResourceLoader {
     public static Image loadImage(String path) {
@@ -29,6 +30,20 @@ public class ResourceLoader {
         }
         catch (Exception e) {
             System.err.println("Lỗi" + path);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Media loadMedia(String path) {
+        try {
+            URL resourceUrl = ResourceLoader.class.getResource(path);
+            if (resourceUrl == null) {
+                throw new NullPointerException("lỖI: " + path);
+            }
+            return new Media(resourceUrl.toExternalForm());
+        } catch (Exception e) {
+            System.err.println("LỖI: " + path);
             e.printStackTrace();
             return null;
         }
