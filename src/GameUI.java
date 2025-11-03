@@ -5,6 +5,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import java.util.List;
 import java.util.ArrayList;
+import javafx.scene.text.FontWeight;
 
 public class GameUI {
     private Paddle paddle;
@@ -14,6 +15,7 @@ public class GameUI {
     private List<Brick> bricks;
     private Font uiFont;
     private Font gameOverFont;
+    private Font titleFont;
     private List<PowerUp> powerUps;
 
     public GameUI() {
@@ -26,6 +28,7 @@ public class GameUI {
             System.err.println("Lỗi");
             this.uiFont = Font.font(20);
             this.gameOverFont = Font.font(40);
+            this.titleFont = Font.font(60);
         }
     }
 
@@ -36,23 +39,43 @@ public class GameUI {
             gc.setFill(Color.BLACK);
             gc.fillRect(0, 0, width, height);
         }
-
-        if (state == GameState.READY || state == GameState.RUNNING) {
-            if (paddle != null) {
-                paddle.render(gc);
-            }
-
-            if (ball != null) {
-                ball.render(gc);
-            }
-        } else if (state == GameState.PAUSED) {
-            if (paddle != null) {
-                paddle.render(gc);
-            }
-            if (ball != null) {
-                ball.render(gc);
-            }
+        if (state == GameState.MENU) {
+            renderMenu(gc, width, height);
+        } else {
+            renderGame(gc, width, height, score, lives, state);
         }
+    }
+
+    private void renderMenu(GraphicsContext gc, int width, int height) {
+        double centerX = width / 2.0;
+
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setFont(titleFont); // (Sử dụng font lớn đã sửa)
+        gc.setFill(Color.WHITE);
+        gc.fillText("ARKANOID", centerX, 150);
+
+        gc.setFont(uiFont);
+
+        gc.setFill(Color.WHITE);
+        gc.fillText("START ARKANOID", centerX, 300);
+
+        gc.setFill(Color.WHITE);
+        gc.fillText("HIGH SCORES", centerX, 350);
+
+        gc.setFill(Color.WHITE);
+        gc.fillText("SETTINGS", centerX, 400);
+
+        gc.setFill(Color.WHITE);
+        gc.fillText("EXIT", centerX, 450);
+    }
+
+    private void renderGame(GraphicsContext gc, int width, int height, int score, int lives, GameState state) {
+
+        if (state == GameState.READY || state == GameState.RUNNING || state == GameState.PAUSED) {
+            if (paddle != null) paddle.render(gc);
+            if (ball != null) ball.render(gc);
+        }
+
         for (Brick brick : bricks) {
             brick.render(gc);
         }
@@ -63,44 +86,31 @@ public class GameUI {
 
         gc.setFill(Color.WHITE);
         gc.setFont(uiFont);
-
         gc.setTextAlign(TextAlignment.LEFT);
         gc.fillText("Score: " + score, 10, 30);
-
         if (heartImage != null) {
-            int heartWidth = 25;
-            int heartHeight = 25;
-            int padding = 5;
-
+            int heartWidth = 25, heartHeight = 25, padding = 5;
             int startX = width - 10 - heartWidth;
             int yPos = 10;
-
             for (int i = 0; i < lives; i++) {
                 int xPos = startX - (i * (heartWidth + padding));
                 gc.drawImage(heartImage, xPos, yPos, heartWidth, heartHeight);
             }
-        } else {
-            gc.setTextAlign(TextAlignment.RIGHT);
-            gc.fillText("Lives: ".concat(String.valueOf(lives)), width - 10, 30);
         }
 
-            gc.setTextAlign(TextAlignment.CENTER);
-
+        gc.setTextAlign(TextAlignment.CENTER);
         if (state == GameState.READY) {
             gc.setFill(Color.YELLOW);
             gc.fillText("Click to Start", width / 2.0, height / 2.0);
-        }
-        else if (state == GameState.GAME_OVER) {
+        } else if (state == GameState.GAME_OVER) {
             gc.setFont(gameOverFont);
             gc.setFill(Color.RED);
             gc.fillText("GAME OVER", width / 2.0, height / 2.0);
         } else if (state == GameState.PAUSED) {
             gc.setFont(gameOverFont);
-            gc.setFill(Color.RED);
+            gc.setFill(Color.CYAN);
             gc.fillText("PAUSED", width / 2.0, height / 2.0);
         }
-
-
     }
 
     public void setPowerUps(List<PowerUp> powerUps) {
