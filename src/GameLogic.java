@@ -22,7 +22,7 @@ public class GameLogic {
         this.paddle = paddle;
         this.bricks = bricks;
         this.sceneHeight = sceneHeight;
-        this.gameState = GameState.READY;
+        this.gameState = GameState.MENU;
         this.score = 0;
         this.lives = 3;
         this.soundManager = soundManager;
@@ -31,8 +31,9 @@ public class GameLogic {
     }
 
     public boolean update() {
-        paddle.update();
         switch (gameState) {
+            case MENU:
+                break;
             case READY:
                 paddle.update();
                 ball.stickToPaddle(paddle);
@@ -74,6 +75,12 @@ public class GameLogic {
             if (powerUp.getY() > this.sceneHeight) {
                 iterator.remove();
             }
+        }
+    }
+
+    public void switchToReady() {
+        if (this.gameState == GameState.MENU) {
+            this.gameState = GameState.READY;
         }
     }
 
