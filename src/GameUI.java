@@ -27,7 +27,6 @@ public class GameUI {
             this.uiFont = Font.font(20);
             this.gameOverFont = Font.font(40);
         }
-
     }
 
     public void render(GraphicsContext gc, int width, int height, int score, int lives, GameState state) {
@@ -65,7 +64,6 @@ public class GameUI {
         gc.setFill(Color.WHITE);
         gc.setFont(uiFont);
 
-
         gc.setTextAlign(TextAlignment.LEFT);
         gc.fillText("Score: " + score, 10, 30);
 
@@ -86,7 +84,7 @@ public class GameUI {
             gc.fillText("Lives: ".concat(String.valueOf(lives)), width - 10, 30);
         }
 
-        gc.setTextAlign(TextAlignment.CENTER);
+            gc.setTextAlign(TextAlignment.CENTER);
 
         if (state == GameState.READY) {
             gc.setFill(Color.YELLOW);
@@ -112,7 +110,6 @@ public class GameUI {
     public void setHeartImage(Image image) {
         this.heartImage = image;
     }
-
 
     public Paddle getPaddle(){
         return paddle;
