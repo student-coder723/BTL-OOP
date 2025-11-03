@@ -167,7 +167,7 @@ public class GameLogic {
     }
 
     private void spawnPowerUp(int x, int y) {
-        int powerUpType = random.nextInt(2);
+        int powerUpType = random.nextInt(3);
 
         switch (powerUpType) {
             case 0:
@@ -175,6 +175,9 @@ public class GameLogic {
                 break;
             case 1 :
                 activePowerUps.add(new FastBallPowerUp(x, y));
+                break;
+            case 2:
+                activePowerUps.add(new ExpandPaddlePowerUp(x, y));
                 break;
         }
     }

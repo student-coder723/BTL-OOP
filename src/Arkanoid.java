@@ -70,9 +70,8 @@ public class Arkanoid extends Application {
         gameUI.setHeartImage(heartImage);
         gameUI.setPowerUps(gameLogic.getActivePowerUps());
 
-        inputHandler.registerHandlers();
-        soundManager.playMusic();
 
+        inputHandler.registerHandlers();
         soundManager.playMusic();
 
         AnimationTimer gameLoop = new AnimationTimer() {
@@ -127,7 +126,6 @@ public class Arkanoid extends Application {
 
         for (int i = 0; i < brickRows; i++) {
             for (int j = 0; j < brickCols; j++) {
-
                 int x = offsetLeft + j * (brickWidth + padding);
                 int y = offsetTop + i * (brickHeight + padding);
 
