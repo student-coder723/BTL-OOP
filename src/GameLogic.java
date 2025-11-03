@@ -160,8 +160,18 @@ public class GameLogic {
     }
 
     private void spawnPowerUp(int x, int y) {
-        activePowerUps.add(new AddLifePowerUp(x, y));
+        int powerUpType = random.nextInt(2);
+
+        switch (powerUpType) {
+            case 0:
+                activePowerUps.add(new AddLifePowerUp(x, y));
+                break;
+            case 1 :
+                activePowerUps.add(new FastBallPowerUp(x, y));
+                break;
+        }
     }
+
 
     public void Pause() {
         if (this.gameState == GameState.RUNNING) {
