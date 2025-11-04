@@ -6,11 +6,8 @@ import java.net.URL;
 
 public class SoundManager {
     private AudioClip brickBreakSound;
-
     private AudioClip gameOverSound;
-
     private MediaPlayer backgroundMusicPlayer;
-
     private boolean isMuted = false;
 
     public SoundManager() {

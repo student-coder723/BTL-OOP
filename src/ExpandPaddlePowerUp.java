@@ -12,6 +12,12 @@ public class ExpandPaddlePowerUp extends PowerUp {
 
     public ExpandPaddlePowerUp(int x, int y) {
         super(x, y, POWERUP_WIDTH, POWERUP_HEIGHT, expandImage, PowerUpType.EXPAND_PADDLE);
+        this.durationInFrames = 600;
+    }
+
+    @Override
+    public void revertEffect(GameLogic gameLogic, Paddle paddle, Ball ball) {
+        paddle.setWidth(Paddle.DEFAULT_WIDTH);
     }
 
     @Override

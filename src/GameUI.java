@@ -32,17 +32,26 @@ public class GameUI {
         }
     }
 
-    public void render(GraphicsContext gc, int width, int height, int score, int lives, GameState state) {
+    public void render(GraphicsContext gc, int width, int height, int score, int lives, GameState state, boolean isMusicMuted) {
         if (backgroundImage != null) {
             gc.drawImage(backgroundImage, 0, 0, width, height);
         } else {
             gc.setFill(Color.BLACK);
             gc.fillRect(0, 0, width, height);
         }
-        if (state == GameState.MENU) {
-            renderMenu(gc, width, height);
-        } else {
-            renderGame(gc, width, height, score, lives, state);
+        switch (state) {
+            case MENU:
+                renderMenu(gc, width, height);
+                break;
+            case SETTINGS:
+                renderSettings(gc, width, height, isMusicMuted);
+                break;
+            case HELPS:
+                renderHelps(gc, width, height);
+                break;
+            default:
+                renderGame(gc, width, height, score, lives, state);
+                break;
         }
     }
 
@@ -60,7 +69,7 @@ public class GameUI {
         gc.fillText("START ARKANOID", centerX, 300);
 
         gc.setFill(Color.WHITE);
-        gc.fillText("HIGH SCORES", centerX, 350);
+        gc.fillText("HELPS", centerX, 350);
 
         gc.setFill(Color.WHITE);
         gc.fillText("SETTINGS", centerX, 400);
@@ -70,10 +79,13 @@ public class GameUI {
     }
 
     private void renderGame(GraphicsContext gc, int width, int height, int score, int lives, GameState state) {
-
         if (state == GameState.READY || state == GameState.RUNNING || state == GameState.PAUSED) {
-            if (paddle != null) paddle.render(gc);
-            if (ball != null) ball.render(gc);
+            if (paddle != null) {
+                paddle.render(gc);
+            }
+            if (ball != null) {
+                ball.render(gc);
+            }
         }
 
         for (Brick brick : bricks) {
@@ -96,6 +108,9 @@ public class GameUI {
                 int xPos = startX - (i * (heartWidth + padding));
                 gc.drawImage(heartImage, xPos, yPos, heartWidth, heartHeight);
             }
+        } else {
+            gc.setTextAlign(TextAlignment.RIGHT);
+            gc.fillText("Lives: ".concat(String.valueOf(lives)), width - 10, 30);
         }
 
         gc.setTextAlign(TextAlignment.CENTER);
@@ -111,6 +126,42 @@ public class GameUI {
             gc.setFill(Color.CYAN);
             gc.fillText("PAUSED", width / 2.0, height / 2.0);
         }
+    }
+
+    private void renderSettings(GraphicsContext gc, int width, int height, boolean isMusicMuted) {
+        double centerX = width / 2.0;
+
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setFont(gameOverFont);
+        gc.setFill(Color.WHITE);
+        gc.fillText("SETTINGS", centerX, 150);
+
+        gc.setFont(uiFont);
+        String musicStatus = isMusicMuted ? "[ OFF ]" : "[ ON ]";
+        gc.fillText("Music: " + musicStatus, centerX, 300);
+
+        gc.setFont(uiFont);
+        gc.setFill(Color.YELLOW);
+        gc.fillText("BACK", centerX, 450);
+    }
+
+    private void renderHelps(GraphicsContext gc, int width, int height) {
+        double centerX = width / 2.0;
+
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setFont(gameOverFont); // Dùng font lớn
+        gc.setFill(Color.WHITE);
+        gc.fillText("HELPS", centerX, 150);
+
+        gc.setFont(uiFont);
+        gc.setFill(Color.WHITE);
+        gc.fillText("Move mouse to control the paddle", centerX, 250);
+        gc.fillText("Click mouse to launch ball", centerX, 300);
+        gc.fillText("Press 'P' to pause the game", centerX, 350);
+
+        gc.setFont(uiFont);
+        gc.setFill(Color.YELLOW);
+        gc.fillText("BACK", centerX, 450);
     }
 
     public void setPowerUps(List<PowerUp> powerUps) {
