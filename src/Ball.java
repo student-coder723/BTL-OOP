@@ -10,6 +10,8 @@ public class Ball extends MovableObject {
     private int sceneHeight;
     private Image ballImage;
 
+    public static final int DEFAULT_SPEED = 4;
+
     public Ball(int x, int y, int size, int speed, int directionX, int directionY, int sceneWidth, int sceneHeight, Image image) {
         super(x, y, size, size,0, 0);
         this.speed = speed;
@@ -73,7 +75,13 @@ public class Ball extends MovableObject {
     }
 
     public void setSpeed(int speed) {
-        this.speed = speed;
+        if (speed < 2) {
+            this.speed = 2;
+        } else if (speed > 8) {
+            this.speed = 8;
+        } else {
+            this.speed = speed;
+        }
     }
 
     public int getDirectionX() {

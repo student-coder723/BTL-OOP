@@ -17,6 +17,8 @@ public class GameLogic {
     private List<PowerUp> activePowerUps;
     private Random random;
 
+    private List<PowerUp> activeEffects;
+
     public GameLogic(Ball ball, Paddle paddle, List<Brick> bricks, int sceneHeight, SoundManager soundManager) {
         this.ball = ball;
         this.paddle = paddle;
@@ -28,6 +30,7 @@ public class GameLogic {
         this.soundManager = soundManager;
         this.activePowerUps = new ArrayList<>();
         this.random = new Random();
+        this.activeEffects = new ArrayList<>();
     }
 
     public boolean update() {
@@ -42,6 +45,7 @@ public class GameLogic {
                 paddle.update();
                 ball.update();
                 updatePowerUps();
+                updateActiveEffects();
                 checkCollisions();
                 checkBallOut();
 
@@ -84,6 +88,20 @@ public class GameLogic {
         }
     }
 
+    private void updateActiveEffects() {
+        Iterator<PowerUp> iterator = activeEffects.iterator();
+        while (iterator.hasNext()) {
+            PowerUp effect = iterator.next();
+            effect.tick();
+
+
+            if (effect.isExpired()) {
+                effect.revertEffect(this, paddle, ball);
+                iterator.remove();
+            }
+        }
+    }
+
 
     public void startGame() {
         if (gameState == gameState.READY) {
@@ -100,13 +118,20 @@ public class GameLogic {
         }
 
         activePowerUps.clear();
-
+        resetAllEffects();
         resetBall();
 
         if (soundManager != null) {
             soundManager.playMusic();
         }
     }
+
+    private void resetAllEffects() {
+        activeEffects.clear();
+        paddle.setWidth(Paddle.DEFAULT_WIDTH);
+        ball.setSpeed(Ball.DEFAULT_SPEED);
+    }
+
 
     private void resetBall() {
         this.gameState = GameState.READY;
@@ -160,6 +185,11 @@ public class GameLogic {
             if (!powerUp.getIsEat() && powerUp.checkCollision(paddle)) {
                 powerUp.applyEffect(this, paddle, ball);
                 powerUp.setIsEat(true);
+
+                if (powerUp.isTemporary()) {
+                    activeEffects.add(powerUp);
+                }
+
                 iterator.remove();
             }
         }
