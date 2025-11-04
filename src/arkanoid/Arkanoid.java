@@ -1,3 +1,16 @@
+package arkanoid;
+
+import arkanoid.controller.GameLogic;
+import arkanoid.controller.InputHandler;
+import arkanoid.model.Ball;
+import arkanoid.model.GameState;
+import arkanoid.model.Paddle;
+import arkanoid.model.bricks.Brick;
+import arkanoid.model.bricks.NormalBrick;
+import arkanoid.model.bricks.StrongBrick;
+import arkanoid.utils.ResourceLoader;
+import arkanoid.utils.SoundManager;
+import arkanoid.view.GameUI;
 import javafx.application.Application;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
@@ -6,7 +19,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +49,7 @@ public class Arkanoid extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Arkanoid Game");
+        primaryStage.setTitle("arkanoid.Arkanoid Game");
 
         Pane root = new Pane();
         Canvas canvas = new Canvas(SCENE_WIDTH, SCENE_HEIGHT);

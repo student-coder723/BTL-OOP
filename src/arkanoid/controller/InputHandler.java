@@ -1,3 +1,7 @@
+package arkanoid.controller;
+
+import arkanoid.model.GameState;
+import arkanoid.model.Paddle;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.application.Platform;

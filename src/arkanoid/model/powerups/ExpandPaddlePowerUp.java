@@ -1,3 +1,9 @@
+package arkanoid.model.powerups;
+
+import arkanoid.controller.GameLogic;
+import arkanoid.model.Ball;
+import arkanoid.model.Paddle;
+import arkanoid.utils.ResourceLoader;
 import javafx.scene.image.Image;
 
 public class ExpandPaddlePowerUp extends PowerUp {

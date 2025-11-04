@@ -1,3 +1,5 @@
+package arkanoid.model;
+
 public enum GameState {
     MENU,
     SETTINGS,

@@ -1,3 +1,10 @@
+package arkanoid.view;
+
+import arkanoid.model.Ball;
+import arkanoid.model.GameState;
+import arkanoid.model.Paddle;
+import arkanoid.model.bricks.Brick;
+import arkanoid.model.powerups.PowerUp;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -5,7 +12,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import java.util.List;
 import java.util.ArrayList;
-import javafx.scene.text.FontWeight;
 
 public class GameUI {
     private Paddle paddle;

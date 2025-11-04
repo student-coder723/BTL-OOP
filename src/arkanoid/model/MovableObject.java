@@ -1,9 +1,20 @@
+package arkanoid.model;
+
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class MovableObject extends GameObject {
     protected int dx;
     protected int dy;
 
+    /**
+     * MovableObject constructor.
+     * @param x vị trí ban đầu theo trục x
+     * @param y vị trí ban đầu theo trục y
+     * @param width chiều rộng của đối tượng
+     * @param height chiều cao của đối tượng
+     * @param dx vận tốc ban đầu theo trục x
+     * @param dy vận tốc ban đầu theo trục y
+     */
     public MovableObject(int x, int y, int width, int height, int dx, int dy) {
         super(x, y, width, height);
         this.dx = dx;

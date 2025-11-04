@@ -1,3 +1,15 @@
+package arkanoid.controller;
+
+import arkanoid.model.Ball;
+import arkanoid.model.GameState;
+import arkanoid.model.Paddle;
+import arkanoid.model.bricks.Brick;
+import arkanoid.model.powerups.AddLifePowerUp;
+import arkanoid.model.powerups.ExpandPaddlePowerUp;
+import arkanoid.model.powerups.FastBallPowerUp;
+import arkanoid.model.powerups.PowerUp;
+import arkanoid.utils.SoundManager;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
