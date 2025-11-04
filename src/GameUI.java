@@ -20,6 +20,7 @@ public class GameUI {
 
     public GameUI() {
         this.bricks = new ArrayList<>();
+        this.powerUps = new ArrayList<>();
 
         try {
             this.uiFont = Font.font("Verdana", 20);

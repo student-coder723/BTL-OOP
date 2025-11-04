@@ -29,6 +29,7 @@ public class Ball extends MovableObject {
     public void update() {
         updateVelocity();
         super.update();
+        checkWallCollision();
     }
 
     @Override
@@ -39,7 +40,6 @@ public class Ball extends MovableObject {
             gc.setFill(Color.YELLOW);
             gc.fillOval(x, y, width, height);
         }
-        checkWallCollision();
     }
 
     public void reverseDirectionX() {
@@ -60,9 +60,6 @@ public class Ball extends MovableObject {
         }
         if (y <= 0) {
             setY(0);
-            reverseDirectionY();
-        } else if (y + height >= sceneHeight) {
-            setY(sceneHeight - height);
             reverseDirectionY();
         }
     }
