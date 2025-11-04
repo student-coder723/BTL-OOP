@@ -5,6 +5,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import java.util.List;
 import java.util.ArrayList;
+import javafx.scene.text.FontWeight;
 
 public class GameUI {
     private Paddle paddle;
@@ -14,10 +15,12 @@ public class GameUI {
     private List<Brick> bricks;
     private Font uiFont;
     private Font gameOverFont;
+    private Font titleFont;
     private List<PowerUp> powerUps;
 
     public GameUI() {
         this.bricks = new ArrayList<>();
+        this.powerUps = new ArrayList<>();
 
         try {
             this.uiFont = Font.font("Verdana", 20);
@@ -26,6 +29,7 @@ public class GameUI {
             System.err.println("Lỗi");
             this.uiFont = Font.font(20);
             this.gameOverFont = Font.font(40);
+            this.titleFont = Font.font(60);
         }
     }
 
@@ -36,7 +40,37 @@ public class GameUI {
             gc.setFill(Color.BLACK);
             gc.fillRect(0, 0, width, height);
         }
+        if (state == GameState.MENU) {
+            renderMenu(gc, width, height);
+        } else {
+            renderGame(gc, width, height, score, lives, state);
+        }
+    }
 
+    private void renderMenu(GraphicsContext gc, int width, int height) {
+        double centerX = width / 2.0;
+
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setFont(titleFont);
+        gc.setFill(Color.WHITE);
+        gc.fillText("ARKANOID", centerX, 150);
+
+        gc.setFont(uiFont);
+
+        gc.setFill(Color.WHITE);
+        gc.fillText("START ARKANOID", centerX, 300);
+
+        gc.setFill(Color.WHITE);
+        gc.fillText("HIGH SCORES", centerX, 350);
+
+        gc.setFill(Color.WHITE);
+        gc.fillText("SETTINGS", centerX, 400);
+
+        gc.setFill(Color.WHITE);
+        gc.fillText("EXIT", centerX, 450);
+    }
+
+    public void renderGame(GraphicsContext gc, int width, int height, int score, int lives, GameState state) {
         if (state == GameState.READY || state == GameState.RUNNING) {
             if (paddle != null) {
                 paddle.render(gc);
@@ -45,14 +79,8 @@ public class GameUI {
             if (ball != null) {
                 ball.render(gc);
             }
-        } else if (state == GameState.PAUSED) {
-            if (paddle != null) {
-                paddle.render(gc);
-            }
-            if (ball != null) {
-                ball.render(gc);
-            }
         }
+
         for (Brick brick : bricks) {
             brick.render(gc);
         }
@@ -84,7 +112,7 @@ public class GameUI {
             gc.fillText("Lives: ".concat(String.valueOf(lives)), width - 10, 30);
         }
 
-            gc.setTextAlign(TextAlignment.CENTER);
+        gc.setTextAlign(TextAlignment.CENTER);
 
         if (state == GameState.READY) {
             gc.setFill(Color.YELLOW);
