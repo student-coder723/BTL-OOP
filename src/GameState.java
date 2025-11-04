@@ -1,5 +1,7 @@
 public enum GameState {
     MENU,
+    SETTINGS,
+    HELPS,
     READY,
     RUNNING,
     PAUSED,

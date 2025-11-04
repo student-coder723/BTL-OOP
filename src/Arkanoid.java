@@ -84,8 +84,9 @@ public class Arkanoid extends Application {
                 int score = gameLogic.getScore();
                 int lives = gameLogic.getLives();
                 GameState state = gameLogic.getGameState();
+                boolean isMuted = gameLogic.isMusicMuted();
 
-                gameUI.render(gc, SCENE_WIDTH, SCENE_HEIGHT, score, lives, state);
+                gameUI.render(gc, SCENE_WIDTH, SCENE_HEIGHT, score, lives, state, isMuted);
             }
         };
 

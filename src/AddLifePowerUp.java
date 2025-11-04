@@ -14,6 +14,9 @@ public class AddLifePowerUp extends PowerUp {
     }
 
     @Override
+    public void revertEffect(GameLogic gameLogic, Paddle paddle, Ball ball) {}
+
+    @Override
     public void applyEffect(GameLogic gameLogic, Paddle paddle, Ball ball) {
         gameLogic.addLife();
     }
