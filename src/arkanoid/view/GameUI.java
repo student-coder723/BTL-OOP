@@ -1,3 +1,10 @@
+package arkanoid.view;
+
+import arkanoid.model.Ball;
+import arkanoid.model.GameState;
+import arkanoid.model.Paddle;
+import arkanoid.model.bricks.Brick;
+import arkanoid.model.powerups.PowerUp;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -5,7 +12,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import java.util.List;
 import java.util.ArrayList;
-import javafx.scene.text.FontWeight;
 
 public class GameUI {
     private Paddle paddle;
@@ -20,7 +26,6 @@ public class GameUI {
 
     public GameUI() {
         this.bricks = new ArrayList<>();
-        this.powerUps = new ArrayList<>();
 
         try {
             this.uiFont = Font.font("Verdana", 20);
@@ -40,7 +45,6 @@ public class GameUI {
             gc.setFill(Color.BLACK);
             gc.fillRect(0, 0, width, height);
         }
-
         switch (state) {
             case MENU:
                 renderMenu(gc, width, height);
@@ -55,14 +59,13 @@ public class GameUI {
                 renderGame(gc, width, height, score, lives, state);
                 break;
         }
-
     }
 
     private void renderMenu(GraphicsContext gc, int width, int height) {
         double centerX = width / 2.0;
 
         gc.setTextAlign(TextAlignment.CENTER);
-        gc.setFont(titleFont);
+        gc.setFont(titleFont); // (Sử dụng font lớn đã sửa)
         gc.setFill(Color.WHITE);
         gc.fillText("ARKANOID", centerX, 150);
 
@@ -81,12 +84,11 @@ public class GameUI {
         gc.fillText("EXIT", centerX, 450);
     }
 
-    public void renderGame(GraphicsContext gc, int width, int height, int score, int lives, GameState state) {
-        if (state == GameState.READY || state == GameState.RUNNING) {
+    private void renderGame(GraphicsContext gc, int width, int height, int score, int lives, GameState state) {
+        if (state == GameState.READY || state == GameState.RUNNING || state == GameState.PAUSED) {
             if (paddle != null) {
                 paddle.render(gc);
             }
-
             if (ball != null) {
                 ball.render(gc);
             }
@@ -102,18 +104,12 @@ public class GameUI {
 
         gc.setFill(Color.WHITE);
         gc.setFont(uiFont);
-
         gc.setTextAlign(TextAlignment.LEFT);
         gc.fillText("Score: " + score, 10, 30);
-
         if (heartImage != null) {
-            int heartWidth = 25;
-            int heartHeight = 25;
-            int padding = 5;
-
+            int heartWidth = 25, heartHeight = 25, padding = 5;
             int startX = width - 10 - heartWidth;
             int yPos = 10;
-
             for (int i = 0; i < lives; i++) {
                 int xPos = startX - (i * (heartWidth + padding));
                 gc.drawImage(heartImage, xPos, yPos, heartWidth, heartHeight);
@@ -124,29 +120,25 @@ public class GameUI {
         }
 
         gc.setTextAlign(TextAlignment.CENTER);
-
         if (state == GameState.READY) {
             gc.setFill(Color.YELLOW);
             gc.fillText("Click to Start", width / 2.0, height / 2.0);
-        }
-        else if (state == GameState.GAME_OVER) {
+        } else if (state == GameState.GAME_OVER) {
             gc.setFont(gameOverFont);
             gc.setFill(Color.RED);
             gc.fillText("GAME OVER", width / 2.0, height / 2.0);
         } else if (state == GameState.PAUSED) {
             gc.setFont(gameOverFont);
-            gc.setFill(Color.RED);
+            gc.setFill(Color.CYAN);
             gc.fillText("PAUSED", width / 2.0, height / 2.0);
         }
-
-
     }
 
     private void renderSettings(GraphicsContext gc, int width, int height, boolean isMusicMuted) {
         double centerX = width / 2.0;
 
         gc.setTextAlign(TextAlignment.CENTER);
-        gc.setFont(gameOverFont); // Dùng font lớn
+        gc.setFont(gameOverFont);
         gc.setFill(Color.WHITE);
         gc.fillText("SETTINGS", centerX, 150);
 

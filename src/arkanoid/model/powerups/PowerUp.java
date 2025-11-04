@@ -1,3 +1,9 @@
+package arkanoid.model.powerups;
+
+import arkanoid.controller.GameLogic;
+import arkanoid.model.Ball;
+import arkanoid.model.MovableObject;
+import arkanoid.model.Paddle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 

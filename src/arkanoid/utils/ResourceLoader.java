@@ -1,6 +1,7 @@
+package arkanoid.utils;
+
 import javafx.scene.image.Image;
 import java.io.InputStream;
-
 import javafx.scene.media.AudioClip;
 import java.net.URL;
 import javafx.scene.media.Media;

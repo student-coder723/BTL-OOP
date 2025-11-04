@@ -1,3 +1,5 @@
+package arkanoid.model;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
@@ -8,6 +10,15 @@ public class Paddle extends MovableObject {
 
     public static final int DEFAULT_WIDTH = 100;
 
+    /**
+     * Paddle constructor.
+     * @param x vị trí ban đầu theo trục x
+     * @param y vị trí ban đầu theo trục y
+     * @param width chiều rộng của thanh đỡ
+     * @param height chiều cao của thanh đỡ
+     * @param speed tốc độ của thanh đỡ
+     * @param paddleImage hình ảnh của thanh đỡ
+     */
     public Paddle(int x, int y, int width, int height, int speed, Image paddleImage) {
         super(x, y, width, height, 0, 0);
         this.speed = speed;

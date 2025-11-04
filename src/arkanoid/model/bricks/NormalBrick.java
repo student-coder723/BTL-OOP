@@ -1,3 +1,5 @@
+package arkanoid.model.bricks;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 

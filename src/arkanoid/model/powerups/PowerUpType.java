@@ -1,3 +1,5 @@
+package arkanoid.model.powerups;
+
 public enum PowerUpType {
     EXPAND_PADDLE,
     FAST_BALL,

@@ -1,3 +1,9 @@
+package arkanoid.model.powerups;
+
+import arkanoid.controller.GameLogic;
+import arkanoid.model.Ball;
+import arkanoid.model.Paddle;
+import arkanoid.utils.ResourceLoader;
 import javafx.scene.image.Image;
 
 public class FastBallPowerUp extends PowerUp {
@@ -8,7 +14,7 @@ public class FastBallPowerUp extends PowerUp {
     private static Image fastBallImage;
 
     static {
-        fastBallImage = ResourceLoader.loadImage("/Ball/Ball.png");
+        fastBallImage = ResourceLoader.loadImage("/Ball/arkanoid.model.Ball.png");
     }
 
     public FastBallPowerUp(int x, int y) {
