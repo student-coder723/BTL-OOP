@@ -13,7 +13,14 @@ public class FastBallPowerUp extends PowerUp {
 
     public FastBallPowerUp(int x, int y) {
         super(x, y, POWERUP_WIDTH, POWERUP_HEIGHT, fastBallImage, PowerUpType.FAST_BALL);
+        this.durationInFrames = 600;
     }
+
+    @Override
+    public void revertEffect(GameLogic gameLogic, Paddle paddle, Ball ball) {
+        ball.setSpeed(Ball.DEFAULT_SPEED);
+    }
+
 
     @Override
     public void applyEffect(GameLogic gameLogic, Paddle paddle, Ball ball) {
