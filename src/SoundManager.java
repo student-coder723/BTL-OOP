@@ -11,6 +11,8 @@ public class SoundManager {
 
     private MediaPlayer backgroundMusicPlayer;
 
+    private boolean isMuted = false;
+
     public SoundManager() {
         brickBreakSound = ResourceLoader.loadAudioClip("/Sounds/hit.mp3");
         gameOverSound = ResourceLoader.loadAudioClip("/Sounds/losing sounds.mp3");
@@ -29,7 +31,7 @@ public class SoundManager {
     }
 
     public void playMusic() {
-        if (backgroundMusicPlayer != null) {
+        if (backgroundMusicPlayer != null && !isMuted) {
             backgroundMusicPlayer.play();
         }
     }
@@ -38,6 +40,19 @@ public class SoundManager {
         if (backgroundMusicPlayer != null) {
             backgroundMusicPlayer.stop();
         }
+    }
+
+    public void toggleMusic() {
+        isMuted = !isMuted;
+        if (isMuted) {
+            stopMusic();
+        } else {
+            playMusic();
+        }
+    }
+
+    public boolean isMuted() {
+        return isMuted;
     }
 
     public void playBrickBreak() {

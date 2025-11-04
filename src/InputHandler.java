@@ -38,10 +38,18 @@ public class InputHandler {
 
         scene.setOnMouseClicked(event -> {
             GameState gameState = gameLogic.getGameState();
+            double x = event.getX();
+            double y = event.getY();
 
             switch (gameState) {
                 case MENU:
-                    handleMenuClick(event.getX(), event.getY());
+                    handleMenuClick(x, y);
+                    break;
+                case SETTINGS:
+                    handleSettingsClick(x, y);
+                    break;
+                case HELPS:
+                    handleHelpsClick(x, y);
                     break;
                 case READY:
                     gameLogic.startGame();
@@ -67,11 +75,38 @@ public class InputHandler {
             gameLogic.switchToReady();
         }
 
-        if (x > centerX - (buttonWidth/2) && x < centerX + (buttonWidth/2) && y > 380 && y < 410) {}
+        if (x > centerX - (buttonWidth/2) && x < centerX + (buttonWidth/2) && y > 330 && y < 360) {
+            gameLogic.switchToHelps();
+        }
+
+        if (x > centerX - (buttonWidth/2) && x < centerX + (buttonWidth/2) && y > 380 && y < 410) {
+            gameLogic.switchToSettings();
+        }
 
         if (x > centerX - (buttonWidth/2) && x < centerX + (buttonWidth/2) && y > 430 && y < 460) {
             Platform.exit();
         }
     }
 
+    private void handleSettingsClick(double x, double y) {
+        int centerX = 400;
+        int buttonWidth = 200;
+
+        if (x > centerX - (buttonWidth/2) && x < centerX + (buttonWidth/2) && y > 280 && y < 310) {
+            gameLogic.toggleBackgroundMusic();
+        }
+
+        if (x > centerX - (buttonWidth/2) && x < centerX + (buttonWidth/2) && y > 430 && y < 460) {
+            gameLogic.switchToMenu();
+        }
+    }
+
+    private void handleHelpsClick(double x, double y) {
+        int centerX = 400;
+        int buttonWidth = 200;
+
+        if (x > centerX - (buttonWidth/2) && x < centerX + (buttonWidth/2) && y > 430 && y < 460) {
+            gameLogic.switchToMenu();
+        }
+    }
 }

@@ -35,8 +35,6 @@ public class GameLogic {
 
     public boolean update() {
         switch (gameState) {
-            case MENU:
-                break;
             case READY:
                 paddle.update();
                 ball.stickToPaddle(paddle);
@@ -54,6 +52,9 @@ public class GameLogic {
                     return true;
                 }
                 break;
+            case MENU:
+            case SETTINGS:
+            case HELPS:
             case PAUSED:
             case GAME_OVER:
                 break;
@@ -88,6 +89,31 @@ public class GameLogic {
         }
     }
 
+    public void switchToMenu() {
+        this.gameState = GameState.MENU;
+    }
+
+    public void switchToSettings() {
+        this.gameState = GameState.SETTINGS;
+    }
+
+    public void switchToHelps() {
+        this.gameState = GameState.HELPS;
+    }
+
+    public void toggleBackgroundMusic() {
+        if (soundManager != null) {
+            soundManager.toggleMusic();
+        }
+    }
+
+    public boolean isMusicMuted() {
+        if (soundManager != null) {
+            return soundManager.isMuted();
+        }
+        return false;
+    }
+
     private void updateActiveEffects() {
         Iterator<PowerUp> iterator = activeEffects.iterator();
         while (iterator.hasNext()) {
@@ -101,7 +127,6 @@ public class GameLogic {
             }
         }
     }
-
 
     public void startGame() {
         if (gameState == gameState.READY) {
@@ -131,7 +156,6 @@ public class GameLogic {
         paddle.setWidth(Paddle.DEFAULT_WIDTH);
         ball.setSpeed(Ball.DEFAULT_SPEED);
     }
-
 
     private void resetBall() {
         this.gameState = GameState.READY;
@@ -212,7 +236,6 @@ public class GameLogic {
         }
     }
 
-
     public void Pause() {
         if (this.gameState == GameState.RUNNING) {
             this.gameState = GameState.PAUSED;
@@ -230,8 +253,6 @@ public class GameLogic {
     public List<PowerUp> getActivePowerUps() {
         return activePowerUps;
     }
-
-
 
     public int getScore(){
         return score;
