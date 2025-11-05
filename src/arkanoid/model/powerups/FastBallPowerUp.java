@@ -14,7 +14,7 @@ public class FastBallPowerUp extends PowerUp {
     private static Image fastBallImage;
 
     static {
-        fastBallImage = ResourceLoader.loadImage("/Ball/arkanoid.model.Ball.png");
+        fastBallImage = ResourceLoader.loadImage("/Ball/ball.png");
     }
 
     public FastBallPowerUp(int x, int y) {
